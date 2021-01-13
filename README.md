@@ -4,6 +4,9 @@ ROS-Mobile is an [Android](https://www.android.com/) application designed for dy
 
 - Current stable Version: 1.1.1
 
+## Notes
+Button code taken from [Cycov](https://github.com/Cycov/ROS-Mobile-Android)
+
 ## Cite
 
 If you use ROS-Mobile for your research, please cite
