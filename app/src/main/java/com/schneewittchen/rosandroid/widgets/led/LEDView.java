@@ -10,6 +10,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.text.DynamicLayout;
 
 import com.schneewittchen.rosandroid.R;
 import com.schneewittchen.rosandroid.ui.views.PublisherView;
@@ -31,7 +32,8 @@ public class LEDView extends PublisherView {
 
     Paint LEDPaint;
     TextPaint textPaint;
-    StaticLayout staticLayout;
+    //StaticLayout staticLayout;
+    DynamicLayout dynamicLayout;
 
     public LEDView(Context context) {
         super(context);
@@ -61,14 +63,17 @@ public class LEDView extends PublisherView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        LEDEntity entity = (LEDEntity) widgetEntity;
         switch(event.getActionMasked()) {
             case MotionEvent.ACTION_UP:
                 LEDPaint.setColor(getResources().getColor(R.color.colorPrimary));
                 changeState(false);
+                entity.text = "LED Toggle\n OFF";
                 break;
             case MotionEvent.ACTION_DOWN:
                 LEDPaint.setColor(getResources().getColor(R.color.color_attention));
                 changeState(true);
+                entity.text = "LED Toggle\n ON";
                 break;
             default:
                 return false;
@@ -92,7 +97,16 @@ public class LEDView extends PublisherView {
 
         canvas.drawRect(new Rect(0,0,(int)width,(int)height),LEDPaint);
 
+        /*
         staticLayout = new StaticLayout(entity.text,
+                textPaint,
+                (int) textLayoutWidth,
+                Layout.Alignment.ALIGN_CENTER,
+                1.0f,
+                0,
+                false);
+                */
+        dynamicLayout = new DynamicLayout(entity.text,
                 textPaint,
                 (int) textLayoutWidth,
                 Layout.Alignment.ALIGN_CENTER,
@@ -101,8 +115,12 @@ public class LEDView extends PublisherView {
                 false);
         canvas.save();
         canvas.rotate(entity.rotation,width / 2,height / 2);
+        /*
         canvas.translate( ((width / 2)-staticLayout.getWidth()/2), height / 2 - staticLayout.getHeight() / 2);
         staticLayout.draw(canvas);
+         */
+        canvas.translate( ((width / 2)-dynamicLayout.getWidth()/2), height / 2 - dynamicLayout.getHeight() / 2);
+        dynamicLayout.draw(canvas);
         canvas.restore();
     }
 }

@@ -27,7 +27,7 @@ public class LEDEntity extends PublisherEntity {
         this.topic = new Topic("led_press", Bool._TYPE);
         this.immediatePublish = true;
         this.publishRate = 20f;
-        this.text = "LED Toggle";
+        this.text = "LED Toggle\n OFF";
         this.rotation = 0;
     }
 
