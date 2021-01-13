@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="widget_names">
+        <item>Debug</item>
+        <item>Camera</item>
+        <item>Gps</item>
+        <item>LED</item>
+    </string-array>
+
+    <string-array name="widget_descr">
+        <item>A Debug Node which can show all topics similar to rostopic info.</item>
+        <item>The Camera Node is designed for displaying camera recordings.
+            Therefore, it subscribes to the topic specified in the details and receives a sensor_msgs/Image message.
+            It will then display the received Image in the Viz Tab.</item>
+        <item>The GPS node is designed for displaying the GPS position of the connected robot onto a map.
+            Therefore, it subscribes to the topic specified in the details and receives a sensor_msgs/NavSatFix message.
+            It will then display the received position onto the map visualized in the Viz Tab.
+            The map will be thereby centered at the position.
+            You can zoom in and out by pinching 2 or more fingers together or apart.</item>
+        <item>Toggles the AgKit LEDs on and off.</item>
+    </string-array>
+
+    <!-- Camera -->
+    <string-array name="camera_msg_types">
+        <item>sensor_msgs/Image</item>
+        <item>sensor_msgs/CompressedImage</item>
+    </string-array>
+
+
+    <!-- GPS -->
+    <string-array name="gps_msg_types">
+        <item>sensor_msgs/NavSatFix</item>
+    </string-array>
+
+    <!-- LED -->
+    <string-array name="rotation">
+        <item>0°</item>
+        <item>90°</item>
+        <item>180°</item>
+        <item>270°</item>
+    </string-array>
+
+    <string-array name="led_msg_types">
+        <item>sensor_msgs/Bool</item>
+    </string-array>
+
+
+</resources>

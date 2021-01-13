@@ -1,0 +1,69 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.schneewittchen.rosandroid"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 4
+        versionName '1.1.1'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
+
+    // ROS
+    implementation "org.ros.rosjava_core:rosjava:0.3.6"
+    implementation "org.ros.rosjava_messages:diagnostic_msgs:1.12.7"
+    implementation 'org.ros.rosjava_messages:geometry_msgs:1.12.7'
+    implementation 'org.ros.rosjava_messages:nav_msgs:1.12.7'
+    implementation 'org.ros.rosjava_messages:std_msgs:0.5.11'
+    implementation 'org.ros.rosjava_messages:map_msgs:1.13.0'
+    implementation 'org.ros.rosjava_messages:sensor_msgs:1.12.7'
+    implementation 'org.ros.rosjava_bootstrap:message_generation:0.3.3'
+    implementation 'org.ros.android_core:android_core_components:0.4.0'
+
+    // Room
+    implementation "androidx.room:room-runtime:2.2.5"
+    annotationProcessor "androidx.room:room-compiler:2.2.5"
+
+    // Parsing
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation project(path: ':jcraft')
+
+    // Open Street Maps (e.g. for GPS)
+    implementation 'org.osmdroid:osmdroid-android:6.1.6'
+
+    // Playing Youtube Videos
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+}
