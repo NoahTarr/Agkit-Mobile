@@ -1,10 +1,11 @@
-package com.schneewittchen.rosandroid.widgets.led;
+package com.schneewittchen.rosandroid.widgets.button;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -27,28 +28,28 @@ import androidx.annotation.Nullable;
  * @modified by Nils Rottmann
  */
 
-public class LEDView extends PublisherView {
-    public static final String TAG = "LEDView";
+public class ButtonView extends PublisherView {
+    public static final String TAG = "ButtonView";
 
-    Paint LEDPaint;
+    Paint buttonPaint;
     TextPaint textPaint;
-    //StaticLayout staticLayout;
     DynamicLayout dynamicLayout;
+    public String status = "\nOFF";
 
-    public LEDView(Context context) {
+    public ButtonView(Context context) {
         super(context);
         init();
     }
 
-    public LEDView(Context context, @Nullable AttributeSet attrs) {
+    public ButtonView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     private void init() {
-        LEDPaint = new Paint();
-        LEDPaint.setColor(getResources().getColor(R.color.colorPrimary));
-        LEDPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        buttonPaint = new Paint();
+        buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
+        buttonPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         textPaint = new TextPaint();
         textPaint.setColor(Color.BLACK);
@@ -57,23 +58,22 @@ public class LEDView extends PublisherView {
     }
 
     private void changeState(boolean pressed) {
-        this.publishViewData(new LEDData(pressed));
+        this.publishViewData(new ButtonData(pressed));
         invalidate();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        LEDEntity entity = (LEDEntity) widgetEntity;
         switch(event.getActionMasked()) {
             case MotionEvent.ACTION_UP:
-                LEDPaint.setColor(getResources().getColor(R.color.colorPrimary));
+                buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
                 changeState(false);
-                entity.text = "LED Toggle\n OFF";
+                status = "\nOFF";
                 break;
             case MotionEvent.ACTION_DOWN:
-                LEDPaint.setColor(getResources().getColor(R.color.color_attention));
+                buttonPaint.setColor(getResources().getColor(R.color.color_attention));
                 changeState(true);
-                entity.text = "LED Toggle\n ON";
+                status = "\nON";
                 break;
             default:
                 return false;
@@ -89,24 +89,15 @@ public class LEDView extends PublisherView {
         float height = getHeight();
         float textLayoutWidth = width;
 
-        LEDEntity entity = (LEDEntity) widgetEntity;
+        ButtonEntity entity = (ButtonEntity) widgetEntity;
 
         if (entity.rotation == 90 || entity.rotation == 270) {
             textLayoutWidth = height;
         }
 
-        canvas.drawRect(new Rect(0,0,(int)width,(int)height),LEDPaint);
+        canvas.drawRect(new Rect(0,0,(int)width,(int)height),buttonPaint);
 
-        /*
-        staticLayout = new StaticLayout(entity.text,
-                textPaint,
-                (int) textLayoutWidth,
-                Layout.Alignment.ALIGN_CENTER,
-                1.0f,
-                0,
-                false);
-                */
-        dynamicLayout = new DynamicLayout(entity.text,
+        dynamicLayout = new DynamicLayout(entity.text + status,
                 textPaint,
                 (int) textLayoutWidth,
                 Layout.Alignment.ALIGN_CENTER,
@@ -115,10 +106,6 @@ public class LEDView extends PublisherView {
                 false);
         canvas.save();
         canvas.rotate(entity.rotation,width / 2,height / 2);
-        /*
-        canvas.translate( ((width / 2)-staticLayout.getWidth()/2), height / 2 - staticLayout.getHeight() / 2);
-        staticLayout.draw(canvas);
-         */
         canvas.translate( ((width / 2)-dynamicLayout.getWidth()/2), height / 2 - dynamicLayout.getHeight() / 2);
         dynamicLayout.draw(canvas);
         canvas.restore();

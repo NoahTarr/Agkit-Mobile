@@ -1,4 +1,4 @@
-package com.schneewittchen.rosandroid.widgets.led;
+package com.schneewittchen.rosandroid.widgets.togglebutton;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,7 +23,7 @@ import com.schneewittchen.rosandroid.utility.Utils;
 
 import androidx.annotation.NonNull;
 
-public class LEDDetailVH extends BaseDetailViewHolder<LEDEntity> {
+public class ToggleButtonDetailVH extends BaseDetailViewHolder<ToggleButtonEntity> {
     private EditText topicNameText;
     private EditText topicTypeEditText;
 
@@ -32,7 +32,7 @@ public class LEDDetailVH extends BaseDetailViewHolder<LEDEntity> {
 
     private ArrayAdapter<CharSequence> rotationAdapter;
 
-    public LEDDetailVH(@NonNull View view, WidgetChangeListener updateListener) {
+    public ToggleButtonDetailVH(@NonNull View view, WidgetChangeListener updateListener) {
         super(view, updateListener);
     }
 
@@ -52,7 +52,7 @@ public class LEDDetailVH extends BaseDetailViewHolder<LEDEntity> {
     }
 
     @Override
-    protected void bindEntity(LEDEntity entity) {
+    protected void bindEntity(ToggleButtonEntity entity) {
         topicNameText.setText(entity.topic.name);
         topicTypeEditText.setText(entity.topic.type);
 

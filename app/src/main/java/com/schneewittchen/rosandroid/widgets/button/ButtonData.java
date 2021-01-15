@@ -1,4 +1,4 @@
-package com.schneewittchen.rosandroid.widgets.led;
+package com.schneewittchen.rosandroid.widgets.button;
 
 import com.schneewittchen.rosandroid.model.entities.BaseEntity;
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.BaseData;
@@ -18,11 +18,11 @@ import std_msgs.Bool;
  * @modified by Nils Rottmann
  */
 
-public class LEDData extends BaseData {
+public class ButtonData extends BaseData {
 
     public boolean pressed;
 
-    public  LEDData(boolean pressed) {
+    public  ButtonData(boolean pressed) {
         this.pressed = pressed;
     }
 
