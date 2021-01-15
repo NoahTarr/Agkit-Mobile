@@ -34,6 +34,7 @@ public class LEDView extends PublisherView {
     TextPaint textPaint;
     //StaticLayout staticLayout;
     DynamicLayout dynamicLayout;
+    boolean press = false;
 
     public LEDView(Context context) {
         super(context);
@@ -61,6 +62,7 @@ public class LEDView extends PublisherView {
         invalidate();
     }
 
+    /* Old button code
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         LEDEntity entity = (LEDEntity) widgetEntity;
@@ -69,12 +71,38 @@ public class LEDView extends PublisherView {
                 LEDPaint.setColor(getResources().getColor(R.color.colorPrimary));
                 changeState(false);
                 entity.text = "LED Toggle\n OFF";
+
                 break;
             case MotionEvent.ACTION_DOWN:
                 LEDPaint.setColor(getResources().getColor(R.color.color_attention));
                 changeState(true);
                 entity.text = "LED Toggle\n ON";
                 break;
+            default:
+                return false;
+        }
+
+        return true;
+    } */
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        LEDEntity entity = (LEDEntity) widgetEntity;
+        switch(event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                if (!press) { // Currently LED off, turn on
+                    LEDPaint.setColor(getResources().getColor(R.color.color_attention));
+                    changeState(true);
+                    entity.text = "LED Toggle\n ON";
+                    press = !press;
+                    break;
+                } else if (press) { // Currently LED on, turn off
+                    LEDPaint.setColor(getResources().getColor(R.color.colorPrimary));
+                    changeState(false);
+                    entity.text = "LED Toggle\n OFF";
+                    press = !press;
+                    break;
+                }
             default:
                 return false;
         }

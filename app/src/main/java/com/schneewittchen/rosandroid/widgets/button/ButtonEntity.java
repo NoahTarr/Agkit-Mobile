@@ -1,4 +1,4 @@
-package com.schneewittchen.rosandroid.widgets.led;
+package com.schneewittchen.rosandroid.widgets.button;
 
 import com.schneewittchen.rosandroid.model.entities.PublisherEntity;
 
@@ -16,18 +16,18 @@ import std_msgs.Bool;
  * @modified by Nils Rottmann
  */
 
-public class LEDEntity extends PublisherEntity {
+public class ButtonEntity extends PublisherEntity {
 
     public String text;
     public int rotation;
 
-    public LEDEntity(){
+    public ButtonEntity(){
         this.width=3;
-        this.height=3;
-        this.topic = new Topic("led_press", Bool._TYPE);
+        this.height=4;
+        this.topic = new Topic("btn_press", Bool._TYPE);
         this.immediatePublish = true;
         this.publishRate = 20f;
-        this.text = "LED Toggle\n OFF";
+        this.text = "A button";
         this.rotation = 0;
     }
 
