@@ -6,11 +6,11 @@
         <item>Debug</item>
         <item>Camera</item>
         <item>Gps</item>
-        <item>LED</item>
+        <item>ToggleButton</item>
     </string-array>
 
     <string-array name="widget_descr">
-        <item>Placeholder button</item>
+        <item>Button that toggles an action for the duration of hold.</item>
         <item>A Debug Node which can show all topics similar to rostopic info.</item>
         <item>The Camera Node is designed for displaying camera recordings.
             Therefore, it subscribes to the topic specified in the details and receives a sensor_msgs/Image message.
@@ -20,7 +20,7 @@
             It will then display the received position onto the map visualized in the Viz Tab.
             The map will be thereby centered at the position.
             You can zoom in and out by pinching 2 or more fingers together or apart.</item>
-        <item>Toggles the AgKit LEDs on and off.</item>
+        <item>Button that toggles an action at button press until the next press.</item>
     </string-array>
 
     <!-- Camera -->
@@ -43,7 +43,11 @@
         <item>270°</item>
     </string-array>
 
-    <string-array name="led_msg_types">
+    <string-array name="button_msg_types">
+        <item>sensor_msgs/Bool</item>
+    </string-array>
+
+    <string-array name="togglebutton_msg_types">
         <item>sensor_msgs/Bool</item>
     </string-array>
 

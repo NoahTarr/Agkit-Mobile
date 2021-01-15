@@ -1,11 +1,10 @@
-package com.schneewittchen.rosandroid.widgets.button;
+package com.schneewittchen.rosandroid.widgets.togglebutton;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -28,28 +27,29 @@ import androidx.annotation.Nullable;
  * @modified by Nils Rottmann
  */
 
-public class ButtonView extends PublisherView {
-    public static final String TAG = "ButtonView";
+public class ToggleButtonView extends PublisherView {
+    public static final String TAG = "ToggleButtonView";
 
-    Paint buttonPaint;
+    Paint ToggleButtonPaint;
     TextPaint textPaint;
     DynamicLayout dynamicLayout;
+    public boolean press = false;
     public String status = "\nOFF";
 
-    public ButtonView(Context context) {
+    public ToggleButtonView(Context context) {
         super(context);
         init();
     }
 
-    public ButtonView(Context context, @Nullable AttributeSet attrs) {
+    public ToggleButtonView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     private void init() {
-        buttonPaint = new Paint();
-        buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
-        buttonPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        ToggleButtonPaint = new Paint();
+        ToggleButtonPaint.setColor(getResources().getColor(R.color.colorPrimary));
+        ToggleButtonPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         textPaint = new TextPaint();
         textPaint.setColor(Color.BLACK);
@@ -58,23 +58,27 @@ public class ButtonView extends PublisherView {
     }
 
     private void changeState(boolean pressed) {
-        this.publishViewData(new ButtonData(pressed));
+        this.publishViewData(new ToggleButtonData(pressed));
         invalidate();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getActionMasked()) {
-            case MotionEvent.ACTION_UP:
-                buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
-                changeState(false);
-                status = "\nOFF";
-                break;
             case MotionEvent.ACTION_DOWN:
-                buttonPaint.setColor(getResources().getColor(R.color.color_attention));
-                changeState(true);
-                status = "\nON";
-                break;
+                if (!press) { // Currently off, turn on
+                    ToggleButtonPaint.setColor(getResources().getColor(R.color.color_attention));
+                    changeState(true);
+                    status = "\nON";
+                    press = !press;
+                    break;
+                } else if (press) { // Currently on, turn off
+                    ToggleButtonPaint.setColor(getResources().getColor(R.color.colorPrimary));
+                    changeState(false);
+                    status = "\nOFF";
+                    press = !press;
+                    break;
+                }
             default:
                 return false;
         }
@@ -89,13 +93,13 @@ public class ButtonView extends PublisherView {
         float height = getHeight();
         float textLayoutWidth = width;
 
-        ButtonEntity entity = (ButtonEntity) widgetEntity;
+        ToggleButtonEntity entity = (ToggleButtonEntity) widgetEntity;
 
         if (entity.rotation == 90 || entity.rotation == 270) {
             textLayoutWidth = height;
         }
 
-        canvas.drawRect(new Rect(0,0,(int)width,(int)height),buttonPaint);
+        canvas.drawRect(new Rect(0,0,(int)width,(int)height),ToggleButtonPaint);
 
         dynamicLayout = new DynamicLayout(entity.text + status,
                 textPaint,

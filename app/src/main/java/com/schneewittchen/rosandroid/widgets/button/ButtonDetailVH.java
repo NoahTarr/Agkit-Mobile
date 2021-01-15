@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 
 public class ButtonDetailVH extends BaseDetailViewHolder<ButtonEntity> {
     private EditText topicNameText;
+    private EditText topicTypeEditText;
 
     private EditText textText;
     private Spinner rotationSpinner;
@@ -38,6 +39,7 @@ public class ButtonDetailVH extends BaseDetailViewHolder<ButtonEntity> {
     @Override
     public void initView(View view) {
         topicNameText = view.findViewById(R.id.topicNameEditText);
+        topicTypeEditText = view.findViewById(R.id.topicTypeEditText);
 
         textText = view.findViewById(R.id.btnTextTypeText);
         rotationSpinner = view.findViewById(R.id.btnTextRotation);
@@ -52,6 +54,7 @@ public class ButtonDetailVH extends BaseDetailViewHolder<ButtonEntity> {
     @Override
     protected void bindEntity(ButtonEntity entity) {
         topicNameText.setText(entity.topic.name);
+        topicTypeEditText.setText(entity.topic.type);
 
         textText.setText(entity.text);
         rotationSpinner.setSelection(rotationAdapter.getPosition(Utils.numberToDegrees(entity.rotation)));

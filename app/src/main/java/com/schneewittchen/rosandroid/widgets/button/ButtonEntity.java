@@ -23,11 +23,11 @@ public class ButtonEntity extends PublisherEntity {
 
     public ButtonEntity(){
         this.width=3;
-        this.height=4;
+        this.height=3;
         this.topic = new Topic("btn_press", Bool._TYPE);
         this.immediatePublish = true;
         this.publishRate = 20f;
-        this.text = "A button";
+        this.text = "Button";
         this.rotation = 0;
     }
 
