@@ -40,6 +40,9 @@ public class ButtonView extends PublisherView {
 
     float width = getWidth();
     float height = getHeight();
+    Rect r1;
+    Rect r2;
+    Rect r3;
 
     public ButtonView(Context context) {
         super(context);
@@ -93,18 +96,20 @@ public class ButtonView extends PublisherView {
                     System.out.println("x: " + x + "  y: " + y); //print to console
                     System.out.println("x check: " + (int)width/2 + "  y check: " + (3*(int)height/10) + " to " + (7*(int)height/10));
 
-                    if (((x>=0)&&(x<=(int)width/2))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
-                        buttonPaint.setColor(getResources().getColor(R.color.color_attention));
-                        changeState(true); //pressed
-                        status = "\n+1";
-                        counter = counter + 1;
-                        System.out.println("INCREMENT");
-                    }
-                    if (((x>=(int)width/2)&&(x<=(int)width))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
-                        buttonPaint.setColor(getResources().getColor(R.color.color_attention));
+                    //if (((x>=0)&&(x<=(int)width/2))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
+                    if (r1.contains (x,y)){
+                        //buttonPaint.setColor(getResources().getColor(R.color.color_attention));
                         changeState(true); //pressed
                         status = "\n-1";
                         counter = counter - 1;
+                        System.out.println("INCREMENT");
+                    }
+                    //if (((x>=(int)width/2)&&(x<=(int)width))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
+                    if (r3.contains (x,y)){
+                        //buttonPaint.setColor(getResources().getColor(R.color.color_attention));
+                        changeState(true); //pressed
+                        status = "\n+1";
+                        counter = counter + 1;
                         System.out.println("DECREMENT");
                     }
 
@@ -130,10 +135,12 @@ public class ButtonView extends PublisherView {
             textLayoutWidth = height;
         }
 
-        Rect r1 = new Rect(0,3*(int)height/10,(int)width/3,7*(int)height/10);
+         r1 = new Rect(0,3*(int)height/10,(int)width/3,7*(int)height/10);
         canvas1.drawRect(r1,buttonPaint);
-        canvas1.drawRect(new Rect((int)width/3,3*(int)height/10,2*(int)width/3,7*(int)height/10),buttonPaintCHECK);
-        canvas1.drawRect(new Rect(2*(int)width/3,3*(int)height/10,(int)width,7*(int)height/10),buttonPaint);
+         r2 = new Rect((int)width/3,3*(int)height/10,2*(int)width/3,7*(int)height/10);
+        canvas1.drawRect(r2,buttonPaintCHECK);
+         r3 = new Rect(2*(int)width/3,3*(int)height/10,(int)width,7*(int)height/10);
+        canvas1.drawRect(r3,buttonPaint);
 
         dynamicLayout = new DynamicLayout( "" + counter,
                 textPaint,
