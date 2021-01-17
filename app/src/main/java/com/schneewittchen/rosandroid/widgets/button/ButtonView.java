@@ -70,9 +70,13 @@ public class ButtonView extends PublisherView {
         textPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         textPaint.setTextSize(26 * getResources().getDisplayMetrics().density);
     }
-
-    private void changeState(boolean pressed) {
-        this.publishViewData(new ButtonData(pressed));
+    //boolean pressedInc;
+    //boolean pressedDec;
+    private void changeState(boolean pressedDec,  boolean pressedInc) {
+        this.publishViewData(new ButtonData(pressedDec));
+        this.publishViewData(new ButtonData(pressedInc));
+        System.out.print(pressedDec);
+        System.out.print(pressedInc);
         invalidate();
     }
 
@@ -82,7 +86,7 @@ public class ButtonView extends PublisherView {
         switch(event.getActionMasked()) {
             case MotionEvent.ACTION_UP:
                 buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
-                changeState(false);
+                changeState(false, false);
                 status = "\n+0"; //not pressed
                 break;
             case MotionEvent.ACTION_DOWN:
@@ -101,18 +105,18 @@ public class ButtonView extends PublisherView {
                     //if (((x>=0)&&(x<=(int)width/2))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
                     if (r1.contains (x,y)){
                         //buttonPaint.setColor(getResources().getColor(R.color.color_attention));
-                        changeState(true); //pressed
+                        changeState(true,false); //pressed
                         status = "\n-1";
                         counter = counter - 1;
-                        System.out.println("INCREMENT");
+                        System.out.println("DECREMENT");
                     }
                     //if (((x>=(int)width/2)&&(x<=(int)width))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
                     if (r3.contains (x,y)){
                         //buttonPaint.setColor(getResources().getColor(R.color.color_attention));
-                        changeState(true); //pressed
+                        changeState(false,true); //pressed
                         status = "\n+1";
                         counter = counter + 1;
-                        System.out.println("DECREMENT");
+                        System.out.println("INCREMENT");
                     }
 
                 break;

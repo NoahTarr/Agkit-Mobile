@@ -7,11 +7,10 @@
         <item>Camera</item>
         <item>Gps</item>
         <item>ToggleButton</item>
-        <item>Camera Angle</item>
     </string-array>
 
     <string-array name="widget_descr">
-        <item>Button that toggles an action for the duration of hold.</item>
+        <item>Increment or decrement this widget to change the camera angle.</item>
         <item>A Debug Node which can show all topics similar to rostopic info.</item>
         <item>The Camera Node is designed for displaying camera recordings.
             Therefore, it subscribes to the topic specified in the details and receives a sensor_msgs/Image message.
@@ -22,7 +21,6 @@
             The map will be thereby centered at the position.
             You can zoom in and out by pinching 2 or more fingers together or apart.</item>
         <item>Button that toggles an action at button press until the next press.</item>
-        <item>Button that increments camera angle by 1.</item>
     </string-array>
 
     <!-- Camera -->
@@ -53,8 +51,5 @@
         <item>sensor_msgs/Bool</item>
     </string-array>
 
-    <string-array name="incrementbutton_msg_types">
-        <item>sensor_msgs/Bool</item>
-    </string-array>
 
 </resources>
