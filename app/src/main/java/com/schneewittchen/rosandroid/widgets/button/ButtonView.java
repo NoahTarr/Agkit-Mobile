@@ -18,6 +18,8 @@ import com.schneewittchen.rosandroid.ui.views.PublisherView;
 
 import androidx.annotation.Nullable;
 
+import std_msgs.Char;
+
 /**
  * TODO: Description
  *
@@ -94,7 +96,7 @@ public class ButtonView extends PublisherView {
                     System.out.println("Height" + height);
 
                     System.out.println("x: " + x + "  y: " + y); //print to console
-                    System.out.println("x check: " + (int)width/2 + "  y check: " + (3*(int)height/10) + " to " + (7*(int)height/10));
+                    //System.out.println("x check: " + (int)width/2 + "  y check: " + (3*(int)height/10) + " to " + (7*(int)height/10));
 
                     //if (((x>=0)&&(x<=(int)width/2))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
                     if (r1.contains (x,y)){
@@ -135,24 +137,33 @@ public class ButtonView extends PublisherView {
             textLayoutWidth = height;
         }
 
-         r1 = new Rect(0,3*(int)height/10,(int)width/3,7*(int)height/10);
+         r1 = new Rect(0,2*(int)height/3,(int)width/3,(int)height);
         canvas1.drawRect(r1,buttonPaint);
-         r2 = new Rect((int)width/3,3*(int)height/10,2*(int)width/3,7*(int)height/10);
+         r2 = new Rect((int)width/3,2*(int)height/3,2*(int)width/3,(int)height);
         canvas1.drawRect(r2,buttonPaintCHECK);
-         r3 = new Rect(2*(int)width/3,3*(int)height/10,(int)width,7*(int)height/10);
+         r3 = new Rect(2*(int)width/3,2*(int)height/3,(int)width,(int)height);
         canvas1.drawRect(r3,buttonPaint);
 
-        dynamicLayout = new DynamicLayout( "" + counter,
-                textPaint,
-                (int) textLayoutWidth,
-                Layout.Alignment.ALIGN_CENTER,
-                1.0f,
-                0,
-                false);
+//        dynamicLayout = new DynamicLayout( ("+"),
+//                textPaint,
+//                r1.width()/2,
+//                Layout.Alignment.ALIGN_NORMAL,
+//                0,
+//                0,
+//                false);
         canvas1.save();
         canvas1.rotate(entity.rotation,width / 2,height / 2);
-        canvas1.translate( ((width / 2)-dynamicLayout.getWidth()/2), height / 2 - dynamicLayout.getHeight() / 2);
-        dynamicLayout.draw(canvas1);
+//        canvas1.translate( ((width / 2)-dynamicLayout.getWidth()/2), height / 2 - dynamicLayout.getHeight() / 2);
+//        dynamicLayout.draw(canvas1);
+
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        String stringCounter = String.valueOf(counter);
+        //int xText = (canvas1.getWidth() / 2); x position
+        //int yText = (int) ((canvas1.getHeight() / 2) - ((textPaint.descent() + textPaint.ascent()) / 2)) ;
+        canvas1.drawText("-", r1.centerX(), r1.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+        canvas1.drawText(stringCounter, r2.centerX(), r2.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+        canvas1.drawText("+", r3.centerX (), r3.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+
         canvas1.restore();
     }
 }
