@@ -22,6 +22,7 @@
             The map will be thereby centered at the position.
             You can zoom in and out by pinching 2 or more fingers together or apart.</item>
         <item>Button that toggles an action at button press until the next press.</item>
+        <item>Button that increments camera angle by 1.</item>
     </string-array>
 
     <!-- Camera -->
@@ -52,5 +53,8 @@
         <item>sensor_msgs/Bool</item>
     </string-array>
 
+    <string-array name="incrementbutton_msg_types">
+        <item>sensor_msgs/Bool</item>
+    </string-array>
 
 </resources>
