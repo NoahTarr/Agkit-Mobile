@@ -32,6 +32,7 @@ public class ButtonView extends PublisherView {
     public static final String TAG = "ButtonView";
 
     Paint buttonPaint;
+    Paint buttonPaintCHECK;
     TextPaint textPaint;
     DynamicLayout dynamicLayout;
     public String status = "\n+1";
@@ -50,6 +51,10 @@ public class ButtonView extends PublisherView {
     private void init() {
         buttonPaint = new Paint();
         buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
+        buttonPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+
+        buttonPaintCHECK = new Paint();
+        buttonPaintCHECK.setColor(getResources().getColor(R.color.color_attention));
         buttonPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         textPaint = new TextPaint();
@@ -87,7 +92,7 @@ public class ButtonView extends PublisherView {
 
 
     @Override
-    public void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas1) {
         float width = getWidth();
         float height = getHeight();
         float textLayoutWidth = width;
@@ -97,20 +102,23 @@ public class ButtonView extends PublisherView {
         if (entity.rotation == 90 || entity.rotation == 270) {
             textLayoutWidth = height;
         }
+        System.out.println("Width:" + width); //print to console
+        System.out.println("Height" + height);
+        canvas1.drawRect(new Rect(0,3*(int)height/10,(int)width/3,7*(int)height/10),buttonPaint);
+        canvas1.drawRect(new Rect((int)width/3,3*(int)height/10,2*(int)width/3,7*(int)height/10),buttonPaintCHECK);
+        canvas1.drawRect(new Rect((int)width,3*(int)height/10,2*(int)width/3,7*(int)height/10),buttonPaint);
 
-        canvas.drawRect(new Rect(0,0,(int)width,(int)height),buttonPaint);
-
-        dynamicLayout = new DynamicLayout(entity.text + "\nIncrease by 1\n" + counter,
+        dynamicLayout = new DynamicLayout( "" + counter,
                 textPaint,
                 (int) textLayoutWidth,
                 Layout.Alignment.ALIGN_CENTER,
                 1.0f,
                 0,
                 false);
-        canvas.save();
-        canvas.rotate(entity.rotation,width / 2,height / 2);
-        canvas.translate( ((width / 2)-dynamicLayout.getWidth()/2), height / 2 - dynamicLayout.getHeight() / 2);
-        dynamicLayout.draw(canvas);
-        canvas.restore();
+        canvas1.save();
+        canvas1.rotate(entity.rotation,width / 2,height / 2);
+        canvas1.translate( ((width / 2)-dynamicLayout.getWidth()/2), height / 2 - dynamicLayout.getHeight() / 2);
+        dynamicLayout.draw(canvas1);
+        canvas1.restore();
     }
 }
