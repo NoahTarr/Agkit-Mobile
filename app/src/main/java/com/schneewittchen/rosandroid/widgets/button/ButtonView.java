@@ -38,6 +38,9 @@ public class ButtonView extends PublisherView {
     public String status = "\n+1";
     public int counter = 0;
 
+    float width = getWidth();
+    float height = getHeight();
+
     public ButtonView(Context context) {
         super(context);
         init();
@@ -68,19 +71,42 @@ public class ButtonView extends PublisherView {
         invalidate();
     }
 
-    @Override
+   @Override
+
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getActionMasked()) {
             case MotionEvent.ACTION_UP:
                 buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
                 changeState(false);
-                status = "\n+1"; //not pressed
+                status = "\n+0"; //not pressed
                 break;
             case MotionEvent.ACTION_DOWN:
-                buttonPaint.setColor(getResources().getColor(R.color.color_attention));
-                changeState(true); //pressed
-                status = "\n+1";
-                counter=counter +1;
+                    int x = (int) event.getX();
+                    int y = (int) event.getY();
+
+                    float width = getWidth();
+                    float height = getHeight();
+
+                    System.out.println("Width:" + width); //print to console
+                    System.out.println("Height" + height);
+
+                    System.out.println("x: " + x + "  y: " + y); //print to console
+                    System.out.println("x check: " + (int)width/2 + "  y check: " + (3*(int)height/10) + " to " + (7*(int)height/10));
+
+                    if (((x>=0)&&(x<=(int)width/2))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
+                        buttonPaint.setColor(getResources().getColor(R.color.color_attention));
+                        changeState(true); //pressed
+                        status = "\n+1";
+                        counter = counter + 1;
+                        System.out.println("INCREMENT");
+                    }
+                    if (((x>=(int)width/2)&&(x<=(int)width))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
+                        buttonPaint.setColor(getResources().getColor(R.color.color_attention));
+                        changeState(true); //pressed
+                        status = "\n-1";
+                        counter = counter - 1;
+                        System.out.println("DECREMENT");
+                    }
 
                 break;
             default:
@@ -95,6 +121,7 @@ public class ButtonView extends PublisherView {
     public void onDraw(Canvas canvas1) {
         float width = getWidth();
         float height = getHeight();
+
         float textLayoutWidth = width;
 
         ButtonEntity entity = (ButtonEntity) widgetEntity;
@@ -102,11 +129,11 @@ public class ButtonView extends PublisherView {
         if (entity.rotation == 90 || entity.rotation == 270) {
             textLayoutWidth = height;
         }
-        System.out.println("Width:" + width); //print to console
-        System.out.println("Height" + height);
-        canvas1.drawRect(new Rect(0,3*(int)height/10,(int)width/3,7*(int)height/10),buttonPaint);
+
+        Rect r1 = new Rect(0,3*(int)height/10,(int)width/3,7*(int)height/10);
+        canvas1.drawRect(r1,buttonPaint);
         canvas1.drawRect(new Rect((int)width/3,3*(int)height/10,2*(int)width/3,7*(int)height/10),buttonPaintCHECK);
-        canvas1.drawRect(new Rect((int)width,3*(int)height/10,2*(int)width/3,7*(int)height/10),buttonPaint);
+        canvas1.drawRect(new Rect(2*(int)width/3,3*(int)height/10,(int)width,7*(int)height/10),buttonPaint);
 
         dynamicLayout = new DynamicLayout( "" + counter,
                 textPaint,
