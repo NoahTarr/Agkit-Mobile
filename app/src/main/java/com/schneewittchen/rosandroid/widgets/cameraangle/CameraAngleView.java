@@ -27,13 +27,12 @@ import com.schneewittchen.rosandroid.ui.views.PublisherView;
  */
 
 public class CameraAngleView extends PublisherView {
-    public static final String TAG = "CameraAngleView";
+    public static final String TAG = "IncrementButtonView";
 
-    Paint ToggleButtonPaint;
+    Paint buttonPaint;
     TextPaint textPaint;
     DynamicLayout dynamicLayout;
-    public boolean incrementing = false;
-    public String status = "\n0";
+    public String status = "\n+0";
 
     public CameraAngleView(Context context) {
         super(context);
@@ -46,9 +45,9 @@ public class CameraAngleView extends PublisherView {
     }
 
     private void init() {
-        ToggleButtonPaint = new Paint();
-        ToggleButtonPaint.setColor(getResources().getColor(R.color.colorPrimary));
-        ToggleButtonPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        buttonPaint = new Paint();
+        buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
+        buttonPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         textPaint = new TextPaint();
         textPaint.setColor(Color.BLACK);
@@ -56,28 +55,24 @@ public class CameraAngleView extends PublisherView {
         textPaint.setTextSize(26 * getResources().getDisplayMetrics().density);
     }
 
-    private void changeState(boolean increment) {
-        this.publishViewData(new CameraAngleData(increment));
+    private void changeState(boolean pressed) {
+        this.publishViewData(new CameraAngleData(pressed));
         invalidate();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch(event.getActionMasked()) {
+            case MotionEvent.ACTION_UP:
+                buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
+                changeState(false);
+                status = "\n+0";
+                break;
             case MotionEvent.ACTION_DOWN:
-                if (!incrementing) { // Currently off, turn on
-                    ToggleButtonPaint.setColor(getResources().getColor(R.color.color_attention));
-                    changeState(true);
-                    status = "\n+";
-                    incrementing = !incrementing;
-                    break;
-                } else if (incrementing) { // Currently on, turn off
-                    ToggleButtonPaint.setColor(getResources().getColor(R.color.colorPrimary));
-                    changeState(false);
-                    status = "\n0";
-                    incrementing = !incrementing;
-                    break;
-                }
+                buttonPaint.setColor(getResources().getColor(R.color.color_attention));
+                changeState(true);
+                status = "\n+1";
+                break;
             default:
                 return false;
         }
@@ -98,7 +93,7 @@ public class CameraAngleView extends PublisherView {
             textLayoutWidth = height;
         }
 
-        canvas.drawRect(new Rect(0,0,(int)width,(int)height),ToggleButtonPaint);
+        canvas.drawRect(new Rect(0,0,(int)width,(int)height),buttonPaint);
 
         dynamicLayout = new DynamicLayout(entity.text + status,
                 textPaint,

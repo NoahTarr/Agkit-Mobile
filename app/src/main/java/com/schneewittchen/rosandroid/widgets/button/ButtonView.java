@@ -34,7 +34,8 @@ public class ButtonView extends PublisherView {
     Paint buttonPaint;
     TextPaint textPaint;
     DynamicLayout dynamicLayout;
-    public String status = "\nOFF";
+    public String status = "\n+1";
+    public int counter = 0;
 
     public ButtonView(Context context) {
         super(context);
@@ -68,12 +69,14 @@ public class ButtonView extends PublisherView {
             case MotionEvent.ACTION_UP:
                 buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
                 changeState(false);
-                status = "\nOFF";
+                status = "\n+1"; //not pressed
                 break;
             case MotionEvent.ACTION_DOWN:
                 buttonPaint.setColor(getResources().getColor(R.color.color_attention));
-                changeState(true);
-                status = "\nON";
+                changeState(true); //pressed
+                status = "\n+1";
+                counter=counter +1;
+
                 break;
             default:
                 return false;
@@ -97,7 +100,7 @@ public class ButtonView extends PublisherView {
 
         canvas.drawRect(new Rect(0,0,(int)width,(int)height),buttonPaint);
 
-        dynamicLayout = new DynamicLayout(entity.text + status,
+        dynamicLayout = new DynamicLayout(entity.text + "\nIncrease by 1\n" + counter,
                 textPaint,
                 (int) textLayoutWidth,
                 Layout.Alignment.ALIGN_CENTER,

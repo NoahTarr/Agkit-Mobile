@@ -23,10 +23,10 @@ public class CameraAngleEntity extends PublisherEntity {
     public CameraAngleEntity(){
         this.width=3;
         this.height=3;
-        this.topic = new Topic("cameraAngle", Bool._TYPE);
+        this.topic = new Topic("btn_press", Bool._TYPE);
         this.immediatePublish = true;
         this.publishRate = 20f;
-        this.text = "Increment Camera Angle";
+        this.text = "Button";
         this.rotation = 0;
     }
 

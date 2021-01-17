@@ -20,16 +20,16 @@ import std_msgs.Bool;
 
 public class CameraAngleData extends BaseData {
 
-    public boolean increment;
+    public boolean pressed;
 
-    public CameraAngleData(boolean increment) {
-        this.increment = increment;
+    public CameraAngleData(boolean pressed) {
+        this.pressed = pressed;
     }
 
     @Override
     public Message toRosMessage(Publisher<Message> publisher, BaseEntity widget) {
         Bool message = (Bool) publisher.newMessage();
-        message.setData(increment);
+        message.setData(pressed);
         return message;
     }
 }
