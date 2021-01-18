@@ -62,7 +62,7 @@ public class CameraAngleAdjustorDetailVH extends BaseDetailViewHolder<CameraAngl
 
     @Override
     public void updateEntity() {
-        entity.topic.type = std_msgs.Bool._TYPE;
+        entity.topic.type = std_msgs.Float32._TYPE;
         entity.topic.name = topicNameText.getText().toString();
 
         entity.text = textText.getText().toString();
