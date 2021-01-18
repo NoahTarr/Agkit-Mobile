@@ -1,9 +1,11 @@
-package com.schneewittchen.rosandroid.widgets.cameraangle;
+package com.schneewittchen.rosandroid.widgets.cameraangleadjustor;
 
 import com.schneewittchen.rosandroid.model.entities.PublisherEntity;
+
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.message.Topic;
 
 import std_msgs.Bool;
+import std_msgs.Float32;
 
 /**
  * TODO: Description
@@ -15,15 +17,15 @@ import std_msgs.Bool;
  * @modified by Nils Rottmann
  */
 
-public class CameraAngleEntity extends PublisherEntity {
+public class CameraAngleAdjustorEntity extends PublisherEntity {
 
     public String text;
     public int rotation;
 
-    public CameraAngleEntity(){
+    public CameraAngleAdjustorEntity(){
         this.width=3;
         this.height=3;
-        this.topic = new Topic("btn_press", Bool._TYPE);
+        this.topic = new Topic("btn_press", Float32._TYPE);
         this.immediatePublish = true;
         this.publishRate = 20f;
         this.text = "Button";

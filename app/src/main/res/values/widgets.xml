@@ -2,7 +2,7 @@
 <resources>
 
     <string-array name="widget_names">
-        <item>Button</item>
+        <item>CameraAngleAdjustor</item>
         <item>Debug</item>
         <item>Camera</item>
         <item>Gps</item>
@@ -21,6 +21,11 @@
             The map will be thereby centered at the position.
             You can zoom in and out by pinching 2 or more fingers together or apart.</item>
         <item>Button that toggles an action at button press until the next press.</item>
+    </string-array>
+
+    <!-- CameraAngleAdjustor -->
+    <string-array name="CameraAngleAdjustor_msg_types">
+        <item>sensor_msgs/Float32</item>
     </string-array>
 
     <!-- Camera -->

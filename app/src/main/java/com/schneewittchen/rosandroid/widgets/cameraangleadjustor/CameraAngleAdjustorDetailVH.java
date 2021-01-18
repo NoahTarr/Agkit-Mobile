@@ -1,4 +1,4 @@
-package com.schneewittchen.rosandroid.widgets.button;
+package com.schneewittchen.rosandroid.widgets.cameraangleadjustor;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,7 +23,7 @@ import com.schneewittchen.rosandroid.utility.Utils;
 
 import androidx.annotation.NonNull;
 
-public class ButtonDetailVH extends BaseDetailViewHolder<ButtonEntity> {
+public class CameraAngleAdjustorDetailVH extends BaseDetailViewHolder<CameraAngleAdjustorEntity> {
     private EditText topicNameText;
     private EditText topicTypeEditText;
 
@@ -32,7 +32,7 @@ public class ButtonDetailVH extends BaseDetailViewHolder<ButtonEntity> {
 
     private ArrayAdapter<CharSequence> rotationAdapter;
 
-    public ButtonDetailVH(@NonNull View view, WidgetChangeListener updateListener) {
+    public CameraAngleAdjustorDetailVH(@NonNull View view, WidgetChangeListener updateListener) {
         super(view, updateListener);
     }
 
@@ -52,7 +52,7 @@ public class ButtonDetailVH extends BaseDetailViewHolder<ButtonEntity> {
     }
 
     @Override
-    protected void bindEntity(ButtonEntity entity) {
+    protected void bindEntity(CameraAngleAdjustorEntity entity) {
         topicNameText.setText(entity.topic.name);
         topicTypeEditText.setText(entity.topic.type);
 

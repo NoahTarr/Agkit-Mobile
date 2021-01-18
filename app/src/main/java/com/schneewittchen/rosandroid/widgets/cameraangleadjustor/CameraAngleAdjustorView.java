@@ -1,4 +1,4 @@
-package com.schneewittchen.rosandroid.widgets.button;
+package com.schneewittchen.rosandroid.widgets.cameraangleadjustor;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,19 +6,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.DynamicLayout;
-import android.text.Layout;
-import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.text.DynamicLayout;
 
 import com.schneewittchen.rosandroid.R;
 import com.schneewittchen.rosandroid.ui.views.PublisherView;
 
 import androidx.annotation.Nullable;
-
-import std_msgs.Char;
 
 /**
  * TODO: Description
@@ -30,7 +25,7 @@ import std_msgs.Char;
  * @modified by Nils Rottmann
  */
 
-public class ButtonView extends PublisherView {
+public class CameraAngleAdjustorView extends PublisherView {
     public static final String TAG = "ButtonView";
 
     Paint buttonPaint;
@@ -46,12 +41,12 @@ public class ButtonView extends PublisherView {
     Rect r2;
     Rect r3;
 
-    public ButtonView(Context context) {
+    public CameraAngleAdjustorView(Context context) {
         super(context);
         init();
     }
 
-    public ButtonView(Context context, @Nullable AttributeSet attrs) {
+    public CameraAngleAdjustorView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -72,11 +67,8 @@ public class ButtonView extends PublisherView {
     }
     //boolean pressedInc;
     //boolean pressedDec;
-    private void changeState(boolean pressedDec,  boolean pressedInc) {
-        this.publishViewData(new ButtonData(pressedDec));
-        this.publishViewData(new ButtonData(pressedInc));
-        System.out.print(pressedDec);
-        System.out.print(pressedInc);
+    private void changeState(float count) {
+        this.publishViewData(new CameraAngleAdjustorData(count));
         invalidate();
     }
 
@@ -86,7 +78,7 @@ public class ButtonView extends PublisherView {
         switch(event.getActionMasked()) {
             case MotionEvent.ACTION_UP:
                 buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
-                changeState(false, false);
+                changeState(counter);
                 status = "\n+0"; //not pressed
                 break;
             case MotionEvent.ACTION_DOWN:
@@ -105,7 +97,7 @@ public class ButtonView extends PublisherView {
                     //if (((x>=0)&&(x<=(int)width/2))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
                     if (r1.contains (x,y)){
                         //buttonPaint.setColor(getResources().getColor(R.color.color_attention));
-                        changeState(true,false); //pressed
+                        changeState(counter); //pressed
                         status = "\n-1";
                         counter = counter - 1;
                         System.out.println("DECREMENT");
@@ -113,7 +105,7 @@ public class ButtonView extends PublisherView {
                     //if (((x>=(int)width/2)&&(x<=(int)width))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
                     if (r3.contains (x,y)){
                         //buttonPaint.setColor(getResources().getColor(R.color.color_attention));
-                        changeState(false,true); //pressed
+                        changeState(counter); //pressed
                         status = "\n+1";
                         counter = counter + 1;
                         System.out.println("INCREMENT");
@@ -135,7 +127,7 @@ public class ButtonView extends PublisherView {
 
         float textLayoutWidth = width;
 
-        ButtonEntity entity = (ButtonEntity) widgetEntity;
+        CameraAngleAdjustorEntity entity = (CameraAngleAdjustorEntity) widgetEntity;
 
         if (entity.rotation == 90 || entity.rotation == 270) {
             textLayoutWidth = height;

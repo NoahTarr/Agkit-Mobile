@@ -1,4 +1,4 @@
-package com.schneewittchen.rosandroid.widgets.button;
+package com.schneewittchen.rosandroid.widgets.cameraangleadjustor;
 
 import com.schneewittchen.rosandroid.model.entities.BaseEntity;
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.BaseData;
@@ -7,6 +7,7 @@ import org.ros.internal.message.Message;
 import org.ros.node.topic.Publisher;
 
 import std_msgs.Bool;
+import std_msgs.Float32;
 
 /**
  * TODO: Description
@@ -18,18 +19,18 @@ import std_msgs.Bool;
  * @modified by Nils Rottmann
  */
 
-public class ButtonData extends BaseData {
+public class CameraAngleAdjustorData extends BaseData {
 
-    public boolean pressed;
+    public float counter;
 
-    public  ButtonData(boolean pressed) {
-        this.pressed = pressed;
+    public CameraAngleAdjustorData(float counter) {
+        this.counter = counter;
     }
 
     @Override
     public Message toRosMessage(Publisher<Message> publisher, BaseEntity widget) {
-        std_msgs.Bool message = (Bool) publisher.newMessage();
-        message.setData(pressed);
+        std_msgs.Float32 message = (Float32) publisher.newMessage();
+        message.setData(counter);
         return message;
     }
 }
