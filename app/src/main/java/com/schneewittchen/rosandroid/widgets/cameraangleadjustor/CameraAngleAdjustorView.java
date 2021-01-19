@@ -133,11 +133,11 @@ public class CameraAngleAdjustorView extends PublisherView {
             textLayoutWidth = height;
         }
 
-         r1 = new Rect(0,2*(int)height/3,(int)width/3,(int)height);
+         r1 = new Rect(0,0,(int)width/3,(int)height);
         canvas1.drawRect(r1,buttonPaint);
-         r2 = new Rect((int)width/3,2*(int)height/3,2*(int)width/3,(int)height);
+         r2 = new Rect((int)width/3,0,2*(int)width/3,(int)height);
         canvas1.drawRect(r2,buttonPaintCHECK);
-         r3 = new Rect(2*(int)width/3,2*(int)height/3,(int)width,(int)height);
+         r3 = new Rect(2*(int)width/3,0,(int)width,(int)height);
         canvas1.drawRect(r3,buttonPaint);
 
 //        dynamicLayout = new DynamicLayout( ("+"),
@@ -149,6 +149,7 @@ public class CameraAngleAdjustorView extends PublisherView {
 //                false);
         canvas1.save();
         canvas1.rotate(entity.rotation,width / 2,height / 2);
+
 //        canvas1.translate( ((width / 2)-dynamicLayout.getWidth()/2), height / 2 - dynamicLayout.getHeight() / 2);
 //        dynamicLayout.draw(canvas1);
 
