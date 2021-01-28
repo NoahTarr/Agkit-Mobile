@@ -95,7 +95,7 @@ public class CameraAngleAdjustorView extends PublisherView {
                     //System.out.println("x check: " + (int)width/2 + "  y check: " + (3*(int)height/10) + " to " + (7*(int)height/10));
 
                     //if (((x>=0)&&(x<=(int)width/2))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
-                    if (r1.contains (x,y)){
+                    if ((r1.contains (x,y)) && (counter > -30)){
                         //buttonPaint.setColor(getResources().getColor(R.color.color_attention));
                         changeState(counter); //pressed
                         status = "\n-1";
@@ -103,7 +103,7 @@ public class CameraAngleAdjustorView extends PublisherView {
                         System.out.println("DECREMENT");
                     }
                     //if (((x>=(int)width/2)&&(x<=(int)width))&&((y>=3*(int)height/10)&&(y<=7*(int)height/10))) {
-                    if (r3.contains (x,y)){
+                    if ((r3.contains (x,y)) && (counter < 30)){
                         //buttonPaint.setColor(getResources().getColor(R.color.color_attention));
                         changeState(counter); //pressed
                         status = "\n+1";
