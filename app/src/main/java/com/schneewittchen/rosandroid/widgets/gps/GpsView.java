@@ -53,8 +53,8 @@ public class GpsView extends SubscriberView {
     // Open Street Map (OSM)
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private MapView map = null;
-    private GeoPoint locationGeoPoint = new GeoPoint(53.872018, 10.704724);
-    private GeoPoint centerGeoPoint = new GeoPoint(53.872018, 10.704724);
+    private GeoPoint locationGeoPoint = new GeoPoint(38.531702, -121.753551);
+    private GeoPoint centerGeoPoint = new GeoPoint(38.531702, -121.753551);
     IMapController mapController = null;
 
     // Rectangle Surrounding
