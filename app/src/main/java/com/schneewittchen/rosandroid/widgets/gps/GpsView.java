@@ -1,10 +1,12 @@
 package com.schneewittchen.rosandroid.widgets.gps;
 
+import android.content.res.AssetManager;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -21,7 +23,10 @@ import com.schneewittchen.rosandroid.utility.Utils;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.tileprovider.tilesource.ITileSource;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
@@ -31,6 +36,7 @@ import org.osmdroid.views.overlay.OverlayItem;
 import org.ros.internal.message.Message;
 
 import java.util.ArrayList;
+import java.io.*;
 
 import sensor_msgs.NavSatFix;
 
@@ -65,10 +71,10 @@ public class GpsView extends SubscriberView {
     GpsData data;
 
     // Zoom Parameters, TODO: Add this into details
-    private double minZoom = 1;         // min. and max. zoom
-    private double maxZoom = 18;
+    private double minZoom = 2;         // min. and max. zoom
+    private double maxZoom = 15;
     private float zoomScale = 1;
-    private float scaleFactor = 18;
+    private float scaleFactor = 15;
     private double dragSensitivity = 0.05;
     private ScaleGestureDetector detector;
 
@@ -104,23 +110,58 @@ public class GpsView extends SubscriberView {
 
     private void init() {
         this.cornerWidth = Utils.dpToPx(this.getContext(), 8);
-        
+
+        requestPermissionsIfNecessary(new String[]{
+                // WRITE_EXTERNAL_STORAGE is required in order to show the map
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+        });
+
         paint = new Paint();
         paint.setColor(getResources().getColor(R.color.whiteHigh));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(10);
-        
         // OSM (initialize the map)
         Context ctx = this.getContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-        
+        String loc = ctx.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).toString();
+
+        // Move assets to external storage
+        AssetManager assetManager = ctx.getAssets();
+        String fileName = "DavisSacWL.gemf";
+        File f = new File(loc);
+        File mapLoc = new File(loc + "/" + fileName);
+        if (!mapLoc.exists()) {
+            if (!f.mkdirs()) {
+                f.mkdirs();
+            }
+            InputStream mapFile = null;
+            OutputStream out = null;
+            try {
+                mapFile = assetManager.open(fileName);
+                out = new FileOutputStream(loc + "/" + fileName);
+                byte[] buffer = new byte[1024];
+                int read;
+                while ((read = mapFile.read(buffer)) != -1) {
+                    out.write(buffer, 0, read);
+                }
+                mapFile.close();
+                mapFile = null;
+                out.flush();
+                out.close();
+                out = null;
+            } catch (Exception e) {
+                Log.e("tag", e.getMessage());
+            }
+        }
+
+        // Initialize MapView
+        Configuration.getInstance().setOsmdroidBasePath(new File(loc)); // Change dir to external memory
         map = new MapView(this.getContext(), null, null);
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        
-        requestPermissionsIfNecessary(new String[]{
-                // WRITE_EXTERNAL_STORAGE is required in order to show the map
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        });
+        map.setUseDataConnection(false); // Set to offline maps only
+        //map.setTileSource(TileSourceFactory.MAPNIK); // Online map source
+        ITileSource tileSource = new XYTileSource("4uMaps", 2, 15, 256, ".png", new String[] {""}); // Offline 4uMaps
+        map.setTileSource(tileSource);
         
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
         map.setMultiTouchControls(true);
@@ -129,6 +170,8 @@ public class GpsView extends SubscriberView {
         
         // Map controller
         mapController = map.getController();
+        mapController.setCenter(centerGeoPoint);
+        mapController.setZoom(scaleFactor);
         
         // Touch
         detector = new ScaleGestureDetector(getContext(), new ScaleListener());
