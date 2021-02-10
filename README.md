@@ -2,10 +2,8 @@
 
 ROS-Mobile is an [Android](https://www.android.com/) application designed for dynamic control and visualization of mobile robotic system operated by the Robot Operating System ([ROS](http://wiki.ros.org/)). The application uses ROS nodes initializing publisher and subscriber with standard ROS messages. The overall code architecture pattern is Model View ViewModel ([MVVM]([https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel](https://en.wikipedia.org/wiki/Model–view–viewmodel))), which stabilizes the application and makes it highly customizable. For a detailed overview of the functionality, we refer to our [wiki](https://github.com/ROS-Mobile/ROS-Mobile-Android/wiki).
 
-- Current stable Version: 1.1.1
+- Current stable Version: 1.2.0
 
-## Notes
-Button code taken from [Cycov](https://github.com/Cycov/ROS-Mobile-Android)
 
 ## Cite
 
@@ -52,10 +50,13 @@ There are three different ways for installing ROS-Mobile onto your mobile device
 
 The following Nodes are currently supported by ROS-Mobile. For a comprehensive overview over the functionality of each node have a look into [Nodes Description](https://github.com/ROS-Mobile/ROS-Mobile-Android/wiki/ROS-Nodes) in the wiki. Additional Nodes will be available in upcoming Versions or can be easily added independently. See the [How to add your own Nodes](https://github.com/ROS-Mobile/ROS-Mobile-Android/wiki/How-to-contribute%3F#add-your-own-nodes) section in the wiki. 
 
-- Joystick (geometry_msgs/Twist)
-- GridMap (nav_msgs/OccupancyGrid)
 - Camera (sensor_msgs/Image)
 - Gps (sensor_msgs/NavSatFix)
+- Button (sensor_msgs/Bool)
+- ToggleButton (sensor_msgs/Bool)
+- CameraAngleAdjustor (sensor_msgs/Float32)
+- Debug (similar to rostopic echo)
+- Logger (std_msgs/String)
 
 ## Short Example Usage
 
@@ -82,4 +83,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Contributor / Maintainer
 
+Main-Developer:
+
 [Nico Studt](https://torellin.github.io/), [Nils Rottmann](https://nrottmann.github.io/)
+
+Contributor:
+
+[Marcus Davi](https://github.com/Marcus-Davi), [Dragos Circa](https://github.com/Cycov)

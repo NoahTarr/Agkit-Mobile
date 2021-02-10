@@ -8,6 +8,7 @@
         <item>Debug</item>
         <item>Camera</item>
         <item>Gps</item>
+        <item>Logger</item>
     </string-array>
 
     <string-array name="widget_descr">
@@ -23,6 +24,7 @@
             It will then display the received position onto the map visualized in the Viz Tab.
             The map will be thereby centered at the position.
             You can zoom in and out by pinching 2 or more fingers together or apart.</item>
+        <item>A Logger message which simply prints String messages published to set topic</item>
     </string-array>
 
     <!-- CameraAngleAdjustor -->
