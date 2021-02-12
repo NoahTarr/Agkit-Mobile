@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Color;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.GestureDetector;
+
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -33,10 +35,14 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.Polyline;
 import org.ros.internal.message.Message;
 
 import java.util.ArrayList;
-import java.io.*;
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.FileOutputStream;
 
 import sensor_msgs.NavSatFix;
 
@@ -96,6 +102,8 @@ public class GpsView extends SubscriberView {
 
     private boolean hadLongPressed = false;
 
+    // Polyline
+    private Polyline polyline;
 
     public GpsView(Context context) {
         super(context);
@@ -128,7 +136,7 @@ public class GpsView extends SubscriberView {
 
         // Move assets to external storage
         AssetManager assetManager = ctx.getAssets();
-        String fileName = "DavisSacWL.gemf";
+        String fileName = "NCalBig.gemf";
         File f = new File(loc);
         File mapLoc = new File(loc + "/" + fileName);
         if (!mapLoc.exists()) {
@@ -163,7 +171,7 @@ public class GpsView extends SubscriberView {
         ITileSource tileSource = new XYTileSource("4uMaps", 2, 15, 256, ".png", new String[] {""}); // Offline 4uMaps
         map.setTileSource(tileSource);
         
-        map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
+        //map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS); // Turn off useless controls on bottom
         map.setMultiTouchControls(true);
         minZoom = map.getMinZoomLevel();
         maxZoom = map.getMaxZoomLevel();
@@ -175,6 +183,11 @@ public class GpsView extends SubscriberView {
         
         // Touch
         detector = new ScaleGestureDetector(getContext(), new ScaleListener());
+
+        // Polyline initialize
+        polyline = new Polyline();
+        polyline.getOutlinePaint().setColor(Color.parseColor("#15B5EC"));
+        polyline.getOutlinePaint().setStrokeWidth(12f);
     }
 
     final GestureDetector gestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
@@ -270,9 +283,11 @@ public class GpsView extends SubscriberView {
         mapController.setZoom(scaleFactor);
         map.requestLayout();
 
+
         // Draw the OMS
         map.layout((int) left, (int) right, (int) width, (int) height);
         map.getOverlays().add(locationOverlay);
+        map.getOverlays().add(polyline);
         map.draw(canvas);
 
         // Apply the changes
@@ -287,6 +302,8 @@ public class GpsView extends SubscriberView {
         
         locationGeoPoint.setLatitude(this.data.getLat());
         locationGeoPoint.setLongitude(this.data.getLon());
+
+        polyline.addPoint(locationGeoPoint); // Add new point for path drawing
         
         this.invalidate();
     }
