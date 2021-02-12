@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ROS-Mobile</string>
 
     <string name="add_widget">Add widget</string>
@@ -47,5 +47,10 @@
     <string name="rename_config">Rename Config</string>
     <string name="rename_widget">Rename Widget</string>
     <string name="no_config">No config</string>
+
+<!--        <string name="app_name" tools:ignore="DuplicateDefinition">ZoomInOut</string>-->
+        <string name="heading">Zoom In/Out in Android</string>
+        <string name="zoomOutButtonText">Zoom Out</string>
+        <string name="zoomInButtonText">Zoom In</string>
 
 </resources>
