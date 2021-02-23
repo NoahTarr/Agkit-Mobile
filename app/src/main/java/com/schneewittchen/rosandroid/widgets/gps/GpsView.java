@@ -287,7 +287,6 @@ public class GpsView extends SubscriberView {
         // Draw the OMS
         map.layout((int) left, (int) right, (int) width, (int) height);
         map.getOverlays().add(locationOverlay);
-        map.getOverlays().add(polyline);
         map.draw(canvas);
 
         // Apply the changes
@@ -304,6 +303,7 @@ public class GpsView extends SubscriberView {
         locationGeoPoint.setLongitude(this.data.getLon());
 
         polyline.addPoint(locationGeoPoint); // Add new point for path drawing
+        map.getOverlays().add(polyline);
         
         this.invalidate();
     }

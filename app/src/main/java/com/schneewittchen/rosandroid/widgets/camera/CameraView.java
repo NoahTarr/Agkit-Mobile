@@ -1,11 +1,14 @@
 package com.schneewittchen.rosandroid.widgets.camera;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -41,6 +44,7 @@ public class CameraView extends SubscriberView {
     private RectF imageRect = new RectF();
 
 
+
     public CameraView(Context context) {
         super(context);
         init();
@@ -66,11 +70,17 @@ public class CameraView extends SubscriberView {
         paintBackground.setStyle(Paint.Style.FILL);
     }
 
+    public static Bitmap RotateBitmap(Bitmap source, float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+
+    }
+
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        canvas.drawPaint(paintBackground);
 
         // Define image size based on the Bitmap width and height
         float leftViz = 0F;
@@ -82,8 +92,16 @@ public class CameraView extends SubscriberView {
         float height = heightViz;
         float left = leftViz;
         float top = topViz;
+        int rotation = ((CameraEntity) widgetEntity).rotation;
+        canvas.drawPaint(paintBackground);
 
         if (data != null) {
+            if (rotation != 0) {
+                data.map = RotateBitmap(data.map, rotation);
+//                data.map.recycle();
+//                data.map = rotated;
+            }
+
             float mapRatio = (float)data.map.getHeight() / data.map.getWidth();
             float vizRatio = heightViz/widthViz;
 
@@ -95,11 +113,23 @@ public class CameraView extends SubscriberView {
             } else if (vizRatio > mapRatio) {
                 width = widthViz;
                 height = (mapRatio/vizRatio) * heightViz;
-                top = 0.5F * (heightViz -height);
+                top = 0.5F * (heightViz - height);
             }
 
-            imageRect.set(left, top, left + width, top + height);
-            canvas.drawBitmap(data.map, null, imageRect, borderPaint);
+//            if (rotation != 0) {
+//                canvas.save();
+//                canvas.rotate(rotation);
+//                imageRect.set(left, top, left + width, top + height);
+//                canvas.drawBitmap(data.map, null, imageRect, borderPaint);
+//                canvas.restore();
+//            }
+//            else {
+//                imageRect.set(left, top, left + width, top + height);
+//                canvas.drawBitmap(data.map, null, imageRect, borderPaint);
+//            }
+                imageRect.set(left, top, left + width, top + height);
+                canvas.drawBitmap(data.map, null, imageRect, borderPaint);
+
         }
 
         // Draw Border

@@ -31,7 +31,6 @@ public class CameraData extends BaseData {
 
     public Bitmap map;
 
-
     public CameraData(CompressedImage image) {
         this.map = this.convert(image);
     }

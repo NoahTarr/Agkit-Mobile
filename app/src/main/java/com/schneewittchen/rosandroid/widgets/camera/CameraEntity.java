@@ -20,12 +20,14 @@ public class CameraEntity extends SubscriberEntity {
     int colorScheme;
     boolean drawBehind;
     boolean useTimeStamp;
+    public int rotation;
 
 
     public CameraEntity() {
-        this.width = 8;
-        this.height = 6;
-        this.topic = new Topic("camera/image_raw", Image._TYPE);
+        this.width = 5;
+        this.height = 4;
+        this.topic = new Topic("camera/image_compressed", Image._TYPE);
+        this.rotation = 0;
     }
 }
 
