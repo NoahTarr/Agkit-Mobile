@@ -2,6 +2,7 @@ package com.schneewittchen.rosandroid.ui.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import androidx.annotation.Nullable;
 
@@ -30,7 +31,6 @@ public abstract class SubscriberView extends BaseView {
     public SubscriberView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-
 
     public abstract void onNewMessage(Message message);
 }
