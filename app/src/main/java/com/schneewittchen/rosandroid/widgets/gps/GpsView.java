@@ -39,6 +39,7 @@ import org.osmdroid.views.overlay.Polyline;
 import org.ros.internal.message.Message;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -103,7 +104,8 @@ public class GpsView extends SubscriberView {
     private boolean hadLongPressed = false;
 
     // Polyline
-    public Polyline polyline;
+    private Polyline polyline;
+    private List<GeoPoint> coords = new ArrayList<>();
 
     public GpsView(Context context) {
         super(context);
@@ -302,9 +304,10 @@ public class GpsView extends SubscriberView {
         
         locationGeoPoint.setLatitude(this.data.getLat());
         locationGeoPoint.setLongitude(this.data.getLon());
-        
+        coords.add(locationGeoPoint);
+        polyline.setPoints(coords);
         this.invalidate();
-        polyline.addPoint(locationGeoPoint); // Add new point for path drawing
+
     }
 
     private void requestPermissionsIfNecessary(String[] permissions) {
