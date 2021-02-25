@@ -103,7 +103,7 @@ public class GpsView extends SubscriberView {
     private boolean hadLongPressed = false;
 
     // Polyline
-    private Polyline polyline;
+    public Polyline polyline;
 
     public GpsView(Context context) {
         super(context);
@@ -302,10 +302,9 @@ public class GpsView extends SubscriberView {
         
         locationGeoPoint.setLatitude(this.data.getLat());
         locationGeoPoint.setLongitude(this.data.getLon());
-
-        polyline.addPoint(locationGeoPoint); // Add new point for path drawing
         
         this.invalidate();
+        polyline.addPoint(locationGeoPoint); // Add new point for path drawing
     }
 
     private void requestPermissionsIfNecessary(String[] permissions) {
