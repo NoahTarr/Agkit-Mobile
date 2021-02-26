@@ -39,6 +39,7 @@ import org.osmdroid.views.overlay.Polyline;
 import org.ros.internal.message.Message;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -103,7 +104,7 @@ public class GpsView extends SubscriberView {
     private boolean hadLongPressed = false;
 
     // Polyline
-    public Polyline polyline;
+    private Polyline polyline;
 
     public GpsView(Context context) {
         super(context);
@@ -186,8 +187,9 @@ public class GpsView extends SubscriberView {
 
         // Polyline initialize
         polyline = new Polyline();
-        polyline.getOutlinePaint().setColor(Color.parseColor("#15B5EC"));
-        polyline.getOutlinePaint().setStrokeWidth(12f);
+        polyline.getOutlinePaint().setColor(Color.parseColor("#EB7734"));
+        polyline.getOutlinePaint().setStrokeWidth(10f);
+        polyline.getOutlinePaint().setAlpha(80);
     }
 
     final GestureDetector gestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
@@ -247,7 +249,7 @@ public class GpsView extends SubscriberView {
 
     @Override
     public void onDraw(Canvas canvas) {
-        Log.i(TAG, "On Draw");
+//        Log.i(TAG, "On Draw");
         super.onDraw(canvas);
         canvas.save();
 
@@ -299,12 +301,11 @@ public class GpsView extends SubscriberView {
     @Override
     public void onNewMessage(Message message) {
         this.data = new GpsData((NavSatFix) message);
-        
+        GeoPoint newGeo = new GeoPoint(this.data.getLat(), this.data.getLon());
         locationGeoPoint.setLatitude(this.data.getLat());
         locationGeoPoint.setLongitude(this.data.getLon());
-        
+        polyline.addPoint(newGeo);
         this.invalidate();
-        polyline.addPoint(locationGeoPoint); // Add new point for path drawing
     }
 
     private void requestPermissionsIfNecessary(String[] permissions) {
