@@ -1,1 +1,0 @@
-The file structure for the project.  
