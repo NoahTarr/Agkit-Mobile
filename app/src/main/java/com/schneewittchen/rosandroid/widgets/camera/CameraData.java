@@ -2,13 +2,17 @@ package com.schneewittchen.rosandroid.widgets.camera;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Build;
 import android.util.Log;
+
+import rapid.decoder.BitmapDecoder;
 
 import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.BaseData;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 
+import rapid.decoder.Quality;
 import sensor_msgs.CompressedImage;
 import sensor_msgs.Image;
 
@@ -30,20 +34,22 @@ public class CameraData extends BaseData {
     public static final String TAG = "CameraData";
 
     public Bitmap map;
-
+    public int rotation;
 
     public CameraData(CompressedImage image) {
         this.map = this.convert(image);
+        this.rotation = 0;
     }
 
     public CameraData(Image image) {
         this.map = this.convert(image);
+        this.rotation = 0;
     }
 
 
     private Bitmap convert(CompressedImage image) {
         ChannelBuffer buffer = image.getData();
-        return BitmapFactory.decodeByteArray(buffer.array(), buffer.arrayOffset(), buffer.readableBytes());
+        return BitmapDecoder.from(buffer.array(), buffer.arrayOffset(), buffer.readableBytes()).decode();
     }
 
     private Bitmap convert(Image image) {
@@ -325,8 +331,8 @@ public class CameraData extends BaseData {
 
         // Create the bitmap if config is set and image is creatable
         if (config != null) {
+            //TOdo: Use bitmap decoder instead of android bitmap.createBitmap
             return Bitmap.createBitmap(intArray, width, height, config);
-
         } else {
             return null;
         }

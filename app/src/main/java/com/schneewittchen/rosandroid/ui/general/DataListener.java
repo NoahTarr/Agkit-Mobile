@@ -13,6 +13,5 @@ import com.schneewittchen.rosandroid.model.repositories.rosRepo.node.BaseData;
  * @modified by
  */
 public interface DataListener {
-
     void onNewWidgetData(BaseData data);
 }
