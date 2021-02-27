@@ -25,10 +25,9 @@ If you use ROS-Mobile for your research, please cite
 
 ## Installing Instructions
 
-There are three different ways for installing ROS-Mobile onto your mobile device: Built from source, install current apk, download from Google Playstore. We highly recommend to use the download function from the Google Playstore.
+There are two ways to install ROS-Mobile: build from source and install a pre-made APK.
 
-##### Built from Source:
-
+##### Build from Source
 - Install Android Studio Version 3.6.1 or higher
 - Download the complete repository (Master Branch) and open it via Android Studio
 - Built the Code (Make Project Button), connect your mobile device to your PC and install the Software (Run 'app'). Make sure you activated the developer options and adb debugging on your mobile device and installed all required drivers for usb and adb.
@@ -39,16 +38,19 @@ There are three different ways for installing ROS-Mobile onto your mobile device
 - Allow third-party apps on your device. Therefore go to **Menu > Settings > Security** and check **Unknown Sources** 
 - Go now to the apk file, tap it, then hit install
 
-##### Download from Google Playstore:
-
-- Simply go to the [Google Playstore Website](https://play.google.com/store/apps/details?id=com.schneewittchen.rosandroid) of the ROS-Mobile app and download it. It will be installed automatically
+##### Installing and generating offline GPS Maps:
+- Download and install the latest stable version of [MOBAC](https://mobac.sourceforge.io/)
+- Go to Atlas > New Atlas. Name the new atlas "NCalBig", and select the format "Osmdroid GEMF"
+- Select Map source as "USGS National Map Satellite & Topo" and select zoom levels 1-15
+- Select desired area for offline map, then click "Add selection" on the left bar
+- Click "Create Atlas" to download and generate the map
+- Move generated NCalBig.gemf file to /ROS-Mobile/app/src/main/assets/
+- Follow build from source instructions above.
 
 ## Introduction Video
 [![Introduction Video](http://img.youtube.com/vi/T0HrEcO-0x0/0.jpg)](http://www.youtube.com/watch?v=T0HrEcO-0x0)
 
 ## Currently available ROS Nodes
-
-The following Nodes are currently supported by ROS-Mobile. For a comprehensive overview over the functionality of each node have a look into [Nodes Description](https://github.com/ROS-Mobile/ROS-Mobile-Android/wiki/ROS-Nodes) in the wiki. Additional Nodes will be available in upcoming Versions or can be easily added independently. See the [How to add your own Nodes](https://github.com/ROS-Mobile/ROS-Mobile-Android/wiki/How-to-contribute%3F#add-your-own-nodes) section in the wiki. 
 
 - Camera (sensor_msgs/Image)
 - Gps (sensor_msgs/NavSatFix)
@@ -81,12 +83,14 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 
-## Contributor / Maintainer
+## Contributors
 
+#### UC Davis: 
+[Neil Katahira](https://github.com/neilkatahira), [Noah Tarr](https://github.com/NoahTarr), [Varsha Senthil](https://github.com/varshaaaaa), [Dillon MacDonald](https://github.com/dillonmac03), [Nolan Pisors](https://github.com/NolanPisors)
+
+#### ROS-Mobile:
 Main-Developer:
-
 [Nico Studt](https://torellin.github.io/), [Nils Rottmann](https://nrottmann.github.io/)
 
 Contributor:
-
 [Marcus Davi](https://github.com/Marcus-Davi), [Dragos Circa](https://github.com/Cycov)
