@@ -39,13 +39,15 @@ There are two ways to install ROS-Mobile: build from source and install a pre-ma
 - Go now to the apk file, tap it, then hit install
 
 ##### Installing and generating offline GPS Maps:
-- Download and install the latest stable version of [MOBAC](https://mobac.sourceforge.io/)
+- Pre-Made map: [Google Drive](https://drive.google.com/file/d/1f4EueSAxT_MA9kzgfSMTMXJwo0Um6Vta/view?usp=sharing). Download and move to /ROS-Mobile/app/src/main/assets/ and follow "Build from source" instruction above
+
+- Alternatively, download and install the latest stable version of [MOBAC](https://mobac.sourceforge.io/)
 - Go to Atlas > New Atlas. Name the new atlas "NCalBig", and select the format "Osmdroid GEMF"
 - Select Map source as "USGS National Map Satellite & Topo" and select zoom levels 1-15
 - Select desired area for offline map, then click "Add selection" on the left bar
 - Click "Create Atlas" to download and generate the map
 - Move generated NCalBig.gemf file to /ROS-Mobile/app/src/main/assets/
-- Follow build from source instructions above.
+- Follow build from source instructions above
 
 ## Introduction Video
 [![Introduction Video](http://img.youtube.com/vi/T0HrEcO-0x0/0.jpg)](http://www.youtube.com/watch?v=T0HrEcO-0x0)
