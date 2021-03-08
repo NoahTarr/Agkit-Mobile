@@ -27,14 +27,15 @@ If you use ROS-Mobile for your research, please cite
 
 There are two ways to install ROS-Mobile: build from source and install a pre-made APK.
 
-##### Build from Source
+##### Build from Source (recommended)
 - Install Android Studio Version 3.6.1 or higher
 - Download the complete repository (Master Branch) and open it via Android Studio
+- If needed, follow instructions to add .gemf map file for GPS [here](https://github.com/NoahTarr/Agkit-Mobile/wiki/GPS-Maps#installing-and-generating-offline-gps-maps)
 - Built the Code (Make Project Button), connect your mobile device to your PC and install the Software (Run 'app'). Make sure you activated the developer options and adb debugging on your mobile device and installed all required drivers for usb and adb.
 
-##### Install current APK:
+##### Install pre-made APK from ROS-Mobile (not updated with this repo!):
 
-- Download the current ROS-Mobile version as [apk file](https://github.com/ROS-Mobile/ROS-Mobile-Android/blob/master/app/release/app-release.apk) and store it in an easy-to-find location onto your mobile device
+- Download the ROS-Mobile version as [apk file](https://github.com/ROS-Mobile/ROS-Mobile-Android/blob/master/app/release/app-release.apk) and store it in an easy-to-find location onto your mobile device
 - Allow third-party apps on your device. Therefore go to **Menu > Settings > Security** and check **Unknown Sources** 
 - Go now to the apk file, tap it, then hit install
 
@@ -77,7 +78,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Contributors
 
 #### UC Davis: 
-[Neil Katahira](https://github.com/neilkatahira), [Noah Tarr](https://github.com/NoahTarr), [Varsha Senthil](https://github.com/varshaaaaa), [Dillon MacDonald](https://github.com/dillonmac03), [Nolan Pisors](https://github.com/NolanPisors)
+[Noah Tarr](https://github.com/NoahTarr), [Neil Katahira](https://github.com/neilkatahira), [Varsha Senthil](https://github.com/varshaaaaa), [Dillon MacDonald](https://github.com/dillonmac03), [Nolan Pisors](https://github.com/NolanPisors)
 
 #### ROS-Mobile:
 Main-Developer:
