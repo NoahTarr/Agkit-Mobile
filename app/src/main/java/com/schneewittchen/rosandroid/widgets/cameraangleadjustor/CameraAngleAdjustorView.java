@@ -31,15 +31,12 @@ public class CameraAngleAdjustorView extends PublisherView {
     Paint buttonPaint;
     Paint buttonPaintCHECK;
     TextPaint textPaint;
-    DynamicLayout dynamicLayout;
     public String status = "\n+1";
     public int counter = 0;
 
-    float width = getWidth();
-    float height = getHeight();
-    Rect r1;
-    Rect r2;
-    Rect r3;
+    Rect increaseAngleRectangle = new Rect();
+    Rect currentValueRectangle = new Rect();
+    Rect decreaseAngleRectangle = new Rect();
 
     public CameraAngleAdjustorView(Context context) {
         super(context);
@@ -72,8 +69,8 @@ public class CameraAngleAdjustorView extends PublisherView {
     }
 
     @Override
-
     public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
         switch(event.getActionMasked()) {
             case MotionEvent.ACTION_UP:
                 buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
@@ -84,20 +81,15 @@ public class CameraAngleAdjustorView extends PublisherView {
                 int x = (int) event.getX();
                 int y = (int) event.getY();
 
-                float width = getWidth();
-                float height = getHeight();
-
-                if ((r1.contains (x,y)) && (counter > -30)){
+                if ((increaseAngleRectangle.contains (x,y)) && (counter > 0)){
                     changeState(counter); //pressed
                     status = "\n-1";
-                    counter = counter - 1;
-                    //System.out.println("DECREMENT");
+                    counter = counter - 5;
                 }
-                if ((r3.contains (x,y)) && (counter < 30)){
+                if ((decreaseAngleRectangle.contains (x,y)) && (counter < 110)){
                     changeState(counter); //pressed
                     status = "\n+1";
-                    counter = counter + 1;
-                    //System.out.println("INCREMENT");
+                    counter = counter + 5;
                 }
 
                 break;
@@ -108,37 +100,74 @@ public class CameraAngleAdjustorView extends PublisherView {
         return true;
     }
 
+    @Override
+    public boolean performClick() {
+        super.performClick();
+
+        return true;
+    }
+
 
     @Override
     public void onDraw(Canvas canvas1) {
         float width = getWidth();
         float height = getHeight();
-
-        float textLayoutWidth = width;
+        int topIncrease, leftIncrease, rightIncrease, bottomIncrease,
+                leftCrntVal, topCrntVal, rightCrntVal, bottomCrntVal,
+                leftDecrease, topDecrease, rightDecrease, bottomDecrease;
 
         CameraAngleAdjustorEntity entity = (CameraAngleAdjustorEntity) widgetEntity;
 
-        if (entity.rotation == 90 || entity.rotation == 270) {
-            textLayoutWidth = height;
+
+        topIncrease = topCrntVal = topDecrease = 0;
+        bottomIncrease = bottomCrntVal = bottomDecrease = (int)height;
+
+        leftIncrease = 0;
+        rightIncrease = (int)width/3;
+
+        leftCrntVal = (int)width/3;
+        rightCrntVal = 2*(int)width/3;
+
+        leftDecrease = 2*(int)width/3;
+        rightDecrease = (int)width;
+
+        if (entity.rotation == 180){
+            leftIncrease = leftDecrease;
+            leftDecrease = 0;
+            rightIncrease = rightDecrease;
+            rightDecrease = (int)width/3;
+        }
+        else if (entity.rotation == 90 || entity.rotation == 270) {
+            leftIncrease = leftCrntVal = leftDecrease = 0;
+            rightIncrease = rightCrntVal = rightDecrease = (int)width;
+
+            topIncrease = 0;
+            bottomIncrease = (int)height/3;
+
+            topCrntVal = (int)height/3;
+            bottomCrntVal = 2*(int)height/3;
+
+            topDecrease = 2*(int)height/3;
+            bottomDecrease = (int)height;
+
+            if (entity.rotation == 270) {
+                topIncrease = topDecrease;
+                topDecrease = 0;
+                bottomIncrease = bottomDecrease;
+                bottomDecrease = (int)height/3;
+            }
         }
 
-        r1 = new Rect(0,0,(int)width/3,(int)height);
-        canvas1.drawRect(r1,buttonPaint);
-        r2 = new Rect((int)width/3,0,2*(int)width/3,(int)height);
-        canvas1.drawRect(r2,buttonPaintCHECK);
-        r3 = new Rect(2*(int)width/3,0,(int)width,(int)height);
-        canvas1.drawRect(r3,buttonPaint);
-
-        canvas1.save();
-        canvas1.rotate(entity.rotation,width / 2,height / 2);
+        increaseAngleRectangle.set(leftIncrease, topIncrease, rightIncrease, bottomIncrease);
+        currentValueRectangle.set(leftCrntVal, topCrntVal, rightCrntVal, bottomCrntVal);
+        decreaseAngleRectangle.set(leftDecrease, topDecrease, rightDecrease, bottomDecrease);
+        canvas1.drawRect(increaseAngleRectangle,buttonPaint);
+        canvas1.drawRect(currentValueRectangle,buttonPaintCHECK);
+        canvas1.drawRect(decreaseAngleRectangle,buttonPaint);
 
         textPaint.setTextAlign(Paint.Align.CENTER);
-        String stringCounter = String.valueOf(counter);
-
-        canvas1.drawText("-", r1.centerX(), r1.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
-        canvas1.drawText(stringCounter, r2.centerX(), r2.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
-        canvas1.drawText("+", r3.centerX (), r3.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
-
-        canvas1.restore();
+        canvas1.drawText("-", increaseAngleRectangle.centerX(), increaseAngleRectangle.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+        canvas1.drawText(String.valueOf(counter), currentValueRectangle.centerX(), currentValueRectangle.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+        canvas1.drawText("+", decreaseAngleRectangle.centerX (), decreaseAngleRectangle.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
     }
 }

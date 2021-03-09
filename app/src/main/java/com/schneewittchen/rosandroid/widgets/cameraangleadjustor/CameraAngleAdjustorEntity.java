@@ -28,7 +28,7 @@ public class CameraAngleAdjustorEntity extends PublisherEntity {
         this.topic = new Topic("angle_press", Float32._TYPE);
         this.immediatePublish = true;
         this.publishRate = 20f;
-        this.text = "Button";
+        this.text = "Camera Angle Adjuster";
         this.rotation = 0;
     }
 
