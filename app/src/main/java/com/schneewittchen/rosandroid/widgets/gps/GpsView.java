@@ -66,7 +66,7 @@ public class GpsView extends SubscriberView {
     // Open Street Map (OSM)
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private MapView map = null;
-    private GeoPoint locationGeoPoint = new GeoPoint(38.531702, -121.753551);
+    private GeoPoint locationGeoPoint = new GeoPoint(38.531702, -121.753551); // Mondavi vineyard
     private GeoPoint centerGeoPoint = new GeoPoint(38.531702, -121.753551);
     IMapController mapController = null;
 
@@ -130,6 +130,7 @@ public class GpsView extends SubscriberView {
         paint.setColor(getResources().getColor(R.color.whiteHigh));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(10);
+
         // OSM (initialize the map)
         Context ctx = this.getContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
@@ -167,12 +168,13 @@ public class GpsView extends SubscriberView {
         // Initialize MapView
         Configuration.getInstance().setOsmdroidBasePath(new File(loc)); // Change dir to external memory
         map = new MapView(this.getContext(), null, null);
-        map.setUseDataConnection(false); // Set to offline maps only
         //map.setTileSource(TileSourceFactory.MAPNIK); // Online map source
-        ITileSource tileSource = new XYTileSource("4uMaps", 2, 15, 256, ".png", new String[] {""}); // Offline 4uMaps
+
+        // Set up offline maps
+        map.setUseDataConnection(false); // Set to offline maps only
+        ITileSource tileSource = new XYTileSource("4uMaps", 2, 15, 256, ".png", new String[] {""}); // Offline USGS
         map.setTileSource(tileSource);
-        
-        //map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS); // Turn off useless controls on bottom
+
         map.setMultiTouchControls(true);
         minZoom = map.getMinZoomLevel();
         maxZoom = map.getMaxZoomLevel();
@@ -188,8 +190,7 @@ public class GpsView extends SubscriberView {
         // Polyline initialize
         polyline = new Polyline();
         polyline.getOutlinePaint().setColor(Color.parseColor("#EB7734"));
-        polyline.getOutlinePaint().setStrokeWidth(10f);
-        polyline.getOutlinePaint().setAlpha(80);
+        polyline.getOutlinePaint().setStrokeWidth(11f);
     }
 
     final GestureDetector gestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
@@ -249,11 +250,10 @@ public class GpsView extends SubscriberView {
 
     @Override
     public void onDraw(Canvas canvas) {
-//        Log.i(TAG, "On Draw");
         super.onDraw(canvas);
         canvas.save();
 
-        // Get vizualization size
+        // Get visualization size
         float left = 0F;
         float right = 0F;
         float width = getWidth();
@@ -284,8 +284,7 @@ public class GpsView extends SubscriberView {
         mapController.setCenter(centerGeoPoint);
         mapController.setZoom(scaleFactor);
         map.requestLayout();
-
-
+        
         // Draw the OMS
         map.layout((int) left, (int) right, (int) width, (int) height);
         map.getOverlays().add(locationOverlay);
@@ -304,7 +303,7 @@ public class GpsView extends SubscriberView {
         locationGeoPoint.setLatitude(this.data.getLat());
         locationGeoPoint.setLongitude(this.data.getLon());
         polyline.addPoint(locationGeoPoint); // Add new point for path drawing
-        map.getOverlays().add(polyline); // TODO: Check if this line is needed
+        map.getOverlays().add(polyline);
         this.invalidate();
     }
 
