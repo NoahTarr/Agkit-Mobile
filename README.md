@@ -77,8 +77,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Contributors
 
-#### UC Davis: 
-[Noah Tarr](https://github.com/NoahTarr), [Neil Katahira](https://github.com/neilkatahira), [Varsha Senthil](https://github.com/varshaaaaa), [Dillon MacDonald](https://github.com/dillonmac03), [Nolan Pisors](https://github.com/NolanPisors)
+#### Agkit-Mobile: 
+[Noah Tarr](https://github.com/NoahTarr), [Neil Katahira](https://github.com/neilkatahira), [Varsha Senthil](https://github.com/varshaaaaa)
 
 #### ROS-Mobile:
 Main-Developer:
