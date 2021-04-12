@@ -1,22 +1,8 @@
-# ROS-Mobile
+# AgKit-Mobile
 
-ROS-Mobile is an [Android](https://www.android.com/) application designed for dynamic control and visualization of mobile robotic system operated by the Robot Operating System ([ROS](http://wiki.ros.org/)). The application uses ROS nodes initializing publisher and subscriber with standard ROS messages. The overall code architecture pattern is Model View ViewModel ([MVVM]([https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel](https://en.wikipedia.org/wiki/Model–view–viewmodel))), which stabilizes the application and makes it highly customizable. For a detailed overview of the functionality, please refer to our [wiki](https://github.com/NoahTarr/Agkit-Mobile/wiki) or the original [ROS-Mobile's wiki](https://github.com/ROS-Mobile/ROS-Mobile-Android/wiki).
+AgKit-Mobile is an [Android](https://www.android.com/) application designed for dynamic control and visualization of mobile robotic system operated by the Robot Operating System ([ROS](http://wiki.ros.org/)). The application uses ROS nodes initializing publisher and subscriber with standard ROS messages. The overall code architecture pattern is Model View ViewModel ([MVVM]([https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel](https://en.wikipedia.org/wiki/Model–view–viewmodel))), which stabilizes the application and makes it highly customizable. For a detailed overview of the functionality, please refer to our [wiki](https://github.com/NoahTarr/Agkit-Mobile/wiki) or the original [ROS-Mobile's wiki](https://github.com/ROS-Mobile/ROS-Mobile-Android/wiki).
 
 - Current stable Version: 1.2.0
-
-
-## Cite
-
-If you use ROS-Mobile for your research, please cite
-
-```
-@article{rottmann2020ros,
-  title={ROS-Mobile: An Android application for the Robot Operating System},
-  author={Rottmann, Nils and Studt, Nico and Ernst, Floris and Rueckert, Elmar},
-  journal={arXiv preprint arXiv:2011.02781},
-  year={2020}
-}
-```
 
 ## Requirements
 
@@ -25,7 +11,7 @@ If you use ROS-Mobile for your research, please cite
 
 ## Installing Instructions
 
-There are two ways to install ROS-Mobile: build from source and install a pre-made APK.
+There are two ways to install AgKit-Mobile: build from source and install a pre-made APK.
 
 ##### Build from Source (recommended)
 - Install Android Studio Version 3.6.1 or higher
@@ -33,14 +19,15 @@ There are two ways to install ROS-Mobile: build from source and install a pre-ma
 - If needed, follow instructions to add .gemf map file for GPS [here](https://github.com/NoahTarr/Agkit-Mobile/wiki/GPS-Maps#installing-and-generating-offline-gps-maps)
 - Built the Code (Make Project Button), connect your mobile device to your PC and install the Software (Run 'app'). Make sure you activated the developer options and adb debugging on your mobile device and installed all required drivers for usb and adb.
 
-##### Install pre-made APK from ROS-Mobile (not updated with this repo!):
+##### Install pre-made APK from AgKit-Mobile:
 
-- Download the ROS-Mobile version as [apk file](https://github.com/ROS-Mobile/ROS-Mobile-Android/blob/master/app/release/app-release.apk) and store it in an easy-to-find location onto your mobile device
+- Download the AgKit-Mobile version as [apk file](https://github.com/NoahTarr/Agkit-Mobile/blob/master/app/release/app-release.apk) and store it in an easy-to-find location onto your mobile device
 - Allow third-party apps on your device. Therefore go to **Menu > Settings > Security** and check **Unknown Sources** 
 - Go now to the apk file, tap it, then hit install
 
-## Introduction Video
+## ROS-Mobile Introduction Video.  
 [![Introduction Video](http://img.youtube.com/vi/T0HrEcO-0x0/0.jpg)](http://www.youtube.com/watch?v=T0HrEcO-0x0)
+*This was created by the original ROS-Mobile developer, not us.*  
 
 ## Currently available ROS Nodes
 
@@ -67,11 +54,11 @@ Manually map an apartment environment using a differential drive robot. Therefor
 ## Contributors
 
 #### Agkit-Mobile: 
-[Noah Tarr](https://github.com/NoahTarr), [Neil Katahira](https://github.com/neilkatahira), [Varsha Senthil](https://github.com/varshaaaaa)
+Developers: [Noah Tarr](https://github.com/NoahTarr), [Neil Katahira](https://github.com/neilkatahira), [Varsha Senthil](https://github.com/varshaaaaa)
 
 #### ROS-Mobile:
-Main-Developer:
+Developers:
 [Nico Studt](https://torellin.github.io/), [Nils Rottmann](https://nrottmann.github.io/)
 
-Contributor:
+Contributors:
 [Marcus Davi](https://github.com/Marcus-Davi), [Dragos Circa](https://github.com/Cycov)
