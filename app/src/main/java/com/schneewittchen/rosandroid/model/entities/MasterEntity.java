@@ -20,6 +20,6 @@ public class MasterEntity {
     public long id;
 
     public long configId;
-    public String ip = "192.168.0.0";
+    public String ip = "10.42.0.1";
     public int port = 11311;
 }
