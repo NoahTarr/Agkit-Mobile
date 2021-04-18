@@ -13,11 +13,9 @@ import com.schneewittchen.rosandroid.utility.Utils;
 /**
  * TODO: Description
  *
- * @author Dragos Circa
+ * @author Neil Katahira
  * @version 1.0.0
- * @created on 02.11.2020
- * @updated on 18.11.2020
- * @modified by Nils Rottmann
+ * @created on 02.11.2021
  */
 
 
@@ -27,7 +25,7 @@ public class CameraAngleAdjustorDetailVH extends BaseDetailViewHolder<CameraAngl
     private EditText topicNameText;
     private EditText topicTypeEditText;
 
-    private EditText textText;
+//    private EditText textText;
     private Spinner rotationSpinner;
 
     private ArrayAdapter<CharSequence> rotationAdapter;
@@ -41,7 +39,7 @@ public class CameraAngleAdjustorDetailVH extends BaseDetailViewHolder<CameraAngl
         topicNameText = view.findViewById(R.id.topicNameEditText);
         topicTypeEditText = view.findViewById(R.id.topicTypeEditText);
 
-        textText = view.findViewById(R.id.btnTextTypeText);
+//        textText = view.findViewById(R.id.btnTextTypeText);
         rotationSpinner = view.findViewById(R.id.btnTextRotation);
 
         // Init spinner
@@ -56,7 +54,7 @@ public class CameraAngleAdjustorDetailVH extends BaseDetailViewHolder<CameraAngl
         topicNameText.setText(entity.topic.name);
         topicTypeEditText.setText(entity.topic.type);
 
-        textText.setText(entity.text);
+//        textText.setText(entity.text);
         rotationSpinner.setSelection(rotationAdapter.getPosition(Utils.numberToDegrees(entity.rotation)));
     }
 
@@ -65,7 +63,7 @@ public class CameraAngleAdjustorDetailVH extends BaseDetailViewHolder<CameraAngl
         entity.topic.type = std_msgs.Float32._TYPE;
         entity.topic.name = topicNameText.getText().toString();
 
-        entity.text = textText.getText().toString();
+//        entity.text = textText.getText().toString();
         entity.rotation = Utils.degreesToNumber(rotationSpinner.getSelectedItem().toString());
     }
 }

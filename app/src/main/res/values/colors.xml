@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#81D4FA</color>
     <color name="colorPrimaryDark">@color/black01dp</color>
-    <color name="colorAccent">#81D4FA</color>
+    <color name="colorAccent">#B6E1F4</color>
 
     <color name="delete_red">#EF5350</color>
     <color name="color_attention">#ffc107</color>

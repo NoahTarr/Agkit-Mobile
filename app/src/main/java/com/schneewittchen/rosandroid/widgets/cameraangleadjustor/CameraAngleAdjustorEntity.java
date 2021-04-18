@@ -10,11 +10,9 @@ import std_msgs.Float32;
 /**
  * TODO: Description
  *
- * @author Dragos Circa
+ * @author Neil Katahira
  * @version 1.0.0
- * @created on 02.11.2020
- * @updated on 18.11.2020
- * @modified by Nils Rottmann
+ * @created on 02.11.2021
  */
 
 public class CameraAngleAdjustorEntity extends PublisherEntity {
