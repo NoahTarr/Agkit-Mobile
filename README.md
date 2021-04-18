@@ -1,6 +1,8 @@
 # AgKit-Mobile
 
-AgKit-Mobile is an [Android](https://www.android.com/) application designed for dynamic control and visualization of mobile robotic system operated by the Robot Operating System ([ROS](http://wiki.ros.org/)). The application uses ROS nodes initializing publisher and subscriber with standard ROS messages. The overall code architecture pattern is Model View ViewModel ([MVVM]([https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel](https://en.wikipedia.org/wiki/Model–view–viewmodel))), which stabilizes the application and makes it highly customizable. For a detailed overview of the functionality, please refer to our [wiki](https://github.com/NoahTarr/Agkit-Mobile/wiki) or the original [ROS-Mobile's wiki](https://github.com/ROS-Mobile/ROS-Mobile-Android/wiki).
+ROS-Mobile is an [Android](https://www.android.com/) application designed for dynamic control and visualization of mobile robotic systems operated by the Robot Operating System ([ROS](http://wiki.ros.org/)). The application uses ROS nodes initializing publisher and subscriber with standard ROS messages. The overall code architecture pattern is Model View ViewModel ([MVVM]([https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel](https://en.wikipedia.org/wiki/Model–view–viewmodel))), which stabilizes the application and makes it highly customizable. For a detailed overview of the functionality, please refer to our [wiki](https://github.com/NoahTarr/Agkit-Mobile/wiki) or the original [ROS-Mobile's wiki](https://github.com/ROS-Mobile/ROS-Mobile-Android/wiki).
+
+Agkit-Mobile is built on top of ROS-Mobile for application specific to the AgKit project. For more information on AgKit specifically, check out the [AgKit Repo](https://github.com/plant-ai-biophysics-lab/AgKit).
 
 - Current stable Version: 1.2.0
 
