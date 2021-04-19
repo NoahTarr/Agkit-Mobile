@@ -48,5 +48,10 @@
     <string name="rename_config">Rename Config</string>
     <string name="rename_widget">Rename Widget</string>
     <string name="no_config">No config</string>
+    <string name="start_with_default_configurations">Start With Default Configurations</string>
+    <string name="create_custom_configuration">Create Custom Configuration</string>
+    <string name="my_first_config">My first Config</string>
+    <string name="get_started">Get Started</string>
+    <string name="next">Next</string>
 
 </resources>
