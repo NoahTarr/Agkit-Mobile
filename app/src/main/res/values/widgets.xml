@@ -2,19 +2,16 @@
 <resources>
 
     <string-array name="widget_names">
+        <item>Camera</item>
+        <item>Gps</item>
         <item>Button</item>
         <item>ToggleButton</item>
         <item>CameraAngleAdjustor</item>
-        <item>Camera</item>
-        <item>Gps</item>
         <item>Logger</item>
         <item>Debug</item>
     </string-array>
 
     <string-array name="widget_descr">
-        <item>Button that toggles an action while pressed.</item>
-        <item>Button that toggles an action on at button press then off at repress.</item>
-        <item>Increment or decrement this widget to change the camera angle.</item>
         <item>The Camera Node is designed for displaying camera recordings.
             Therefore, it subscribes to the topic specified in the details and receives a sensor_msgs/Image message.
             It will then display the received Image in the Viz Tab.</item>
@@ -24,6 +21,9 @@
             The map starts center on the targeted location and moves with the icon location.
             You can zoom in and out by pinching 2 or more fingers together or apart.
             You can recenter the mpa by long pressing the map.</item>
+        <item>Button that toggles an action while pressed.</item>
+        <item>Button that toggles an action on at button press then off at repress.</item>
+        <item>Increment or decrement this widget to change the camera angle.</item>
         <item>A Logger message which simply prints String messages published to set topic</item>
         <item>A Debug Node which can show all topics similar to rostopic info.</item>
     </string-array>
