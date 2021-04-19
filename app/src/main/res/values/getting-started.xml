@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="getting_started_title">
+        <item>AgKit Mobile</item>
+        <item>Getting Started</item>
+        <item>Supply Power</item>
+        <item>Turn AgKit On</item>
+        <item>Startup Time</item>
+        <item>Connect to WiFi Network</item>
+        <item>Select Startup Mode</item>
+        <item>Choose Configuration</item>
+        <item>Connect to ROS Network</item>
+        <item>Setup Complete</item>
+        <item>SSH</item>
+        <item>Debug</item>
+    </string-array>
+
+    <string-array name="getting_started_descr">
+        <item>AgKit-Mobile is an Android application designed for dynamic control and visualization of the AgKit robot.</item>
+        <item>The remainder of these slides explain how to get up and running with AgKit and this app.</item>
+        <item>Connect power source to the powerjack (12V, 15A).</item>
+        <item>Turn on the power switch (Manually adjust the camera position and hold. after being powered the camera will be fixed).</item>
+        <item>Wait the system boot (~2 min), all LED lights and the indication LED should be on. (If not, reboot).</item>
+        <item>Connect this tablet to the \"kit-desktop\" WiFi that is published by the AgKit.</item>
+        <item>After these introductory slides, select \"START WITH CUSTOM CONFIGURATIONS\" for general use or \"CREATE CUSTOM CONFIGURATION\" for advanced use.</item>
+        <item>Select the menu button at the top left of the screen. Choose a predefined configuration from the list or create your own in the \"DETAILS\" tab.</item>
+        <item>Navigate to the \"MASTER\" Tab. Enter Master URL and Port for AgKit (If different than defaults). Press \"CONNECT\". The button should become red and change to \"DISCONNECT\".</item>
+        <item>Navigate to the \"VIZ\" Tab to see the results. Each time you change to a different config, you will need to reconnect to the AgKit in the "MASTER" tab.</item>
+        <item>For more technical users, there is also a built in SSH tab that allows you to connect to the AgKit directly.</item>
+        <item>If you are having problems, the \"debug\" widget and/or predefined configuration may help.</item>
+    </string-array>
+
+    <integer-array name="getting_started_img">
+        <item>@drawable/intro_start</item>
+        <item>@drawable/intro_start</item>
+        <item>@drawable/plug</item>
+        <item>@drawable/powersymbol</item>
+        <item>@drawable/hourglass</item>
+        <item>@drawable/wifi</item>
+        <item>@drawable/select_startup_mode</item>
+        <item>@drawable/choose_configuration</item>
+        <item>@drawable/connect_to_ros_network</item>
+        <item>@drawable/intro_monitor</item>
+        <item>@drawable/intro_ssh</item>
+        <item>@drawable/debug</item>
+    </integer-array>
+
+</resources>

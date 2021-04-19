@@ -147,7 +147,8 @@ public class IntroFragment extends Fragment {
             screenPager.setCurrentItem(itemPosition);
 
         } else {
-            loadVideoScreen();
+//            loadVideoScreen();
+            loadConfigNameScreen();
         }
     }
 
@@ -168,9 +169,13 @@ public class IntroFragment extends Fragment {
 
     private void loadConfigNameScreen() {
         buttonGetStarted.setAnimation(null);
-        buttonCustomConfiguration.setAnimation(buttonAnimation);
+        buttonNext.setVisibility(View.INVISIBLE);
         buttonGetStarted.setVisibility(View.INVISIBLE);
         videoView.setVisibility(View.INVISIBLE);
+        tabIndicator.setVisibility(View.INVISIBLE);
+        screenPager.setVisibility(View.INVISIBLE);
+        buttonCustomConfiguration.setAnimation(buttonAnimation);
+        buttonDefaultConfigurations.setAnimation(buttonAnimation);
         buttonCustomConfiguration.setVisibility(View.VISIBLE);
         buttonDefaultConfigurations.setVisibility(View.VISIBLE);
         editTextConfigName.setVisibility(View.VISIBLE);
