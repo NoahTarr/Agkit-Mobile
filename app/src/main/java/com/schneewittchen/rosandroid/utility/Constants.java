@@ -16,6 +16,8 @@ public class Constants {
      */
     public static final String DB_NAME = "config_database";
 
+    public static final String PATH_TO_INITIAL_DB_ASSET = "database/init_config_database";
+
     public static final String VIEW_FORMAT = ".widgets.%s.%sView";
 
     public static final String VIEWHOLDER_FORMAT = ".widgets.%s.%sDetailVH";
