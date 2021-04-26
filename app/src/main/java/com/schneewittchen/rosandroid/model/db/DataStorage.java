@@ -48,9 +48,16 @@ public abstract class DataStorage extends RoomDatabase {
 
     public static synchronized DataStorage getInstance(final Context context) {
         if (instance == null){
+            //Initializes database empty
+//            instance = Room.databaseBuilder(context.getApplicationContext(),
+//                    DataStorage.class, Constants.DB_NAME)
+//                    .fallbackToDestructiveMigration()
+//                    .build();
+
+            //Initializes database to copy of existing database
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     DataStorage.class, Constants.DB_NAME)
-                    .fallbackToDestructiveMigration()
+                    .createFromAsset(Constants.PATH_TO_INITIAL_DB_ASSET)
                     .build();
         }
 

@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.text.DynamicLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -13,29 +12,34 @@ import android.view.MotionEvent;
 import com.schneewittchen.rosandroid.R;
 import com.schneewittchen.rosandroid.ui.views.PublisherView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
  * TODO: Description
  *
- * @author Dragos Circa
- * @version 1.0.0
- * @created on 02.11.2020
- * @updated on 18.11.2020
- * @modified by Nils Rottmann
+ * @author Neil Katahira
+ * @version 1.0.1
+ * @created on 02.11.2021
+ * @updated on 04.11.2021
+ * @modified by Noah Tarr
  */
 
 public class CameraAngleAdjustorView extends PublisherView {
     public static final String TAG = "ButtonView";
 
-    Paint buttonPaint;
-    Paint buttonPaintCHECK;
+    Paint increaseAngleRectanglePaint;
+    Paint currentAngleRectanglePaint;
+    Paint decreaseAngleRectanglePaint;
     TextPaint textPaint;
-    public String status = "\n+1";
+
+    private final int minAngle = -55;
+    private final int maxAngle = 55;
     public int counter = 0;
+    public String status = "\n+1";
 
     Rect increaseAngleRectangle = new Rect();
-    Rect currentValueRectangle = new Rect();
+    Rect currentAngleRectangle = new Rect();
     Rect decreaseAngleRectangle = new Rect();
 
     public CameraAngleAdjustorView(Context context) {
@@ -49,13 +53,17 @@ public class CameraAngleAdjustorView extends PublisherView {
     }
 
     private void init() {
-        buttonPaint = new Paint();
-        buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
-        buttonPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        increaseAngleRectanglePaint = new Paint();
+        increaseAngleRectanglePaint.setColor(getResources().getColor(R.color.colorPrimary));
+        increaseAngleRectanglePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-        buttonPaintCHECK = new Paint();
-        buttonPaintCHECK.setColor(getResources().getColor(R.color.color_attention));
-        buttonPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        currentAngleRectanglePaint = new Paint();
+        currentAngleRectanglePaint.setColor(getResources().getColor(R.color.colorAccent));
+        currentAngleRectanglePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+
+        decreaseAngleRectanglePaint = new Paint();
+        decreaseAngleRectanglePaint.setColor(getResources().getColor(R.color.colorPrimary));
+        decreaseAngleRectanglePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         textPaint = new TextPaint();
         textPaint.setColor(Color.BLACK);
@@ -64,7 +72,7 @@ public class CameraAngleAdjustorView extends PublisherView {
     }
 
     private void changeState(float count) {
-        this.publishViewData(new CameraAngleAdjustorData(count));
+        this.publishViewData(new CameraAngleAdjustorData(count + (int)(maxAngle / 2)));
         invalidate();
     }
 
@@ -73,7 +81,8 @@ public class CameraAngleAdjustorView extends PublisherView {
         super.onTouchEvent(event);
         switch(event.getActionMasked()) {
             case MotionEvent.ACTION_UP:
-                buttonPaint.setColor(getResources().getColor(R.color.colorPrimary));
+                increaseAngleRectanglePaint.setColor(getResources().getColor(R.color.colorPrimary));
+                decreaseAngleRectanglePaint.setColor(getResources().getColor(R.color.colorPrimary));
                 changeState(counter);
                 status = "\n+0"; //not pressed
                 break;
@@ -81,12 +90,14 @@ public class CameraAngleAdjustorView extends PublisherView {
                 int x = (int) event.getX();
                 int y = (int) event.getY();
 
-                if ((increaseAngleRectangle.contains (x,y)) && (counter > 0)){
+                if ((increaseAngleRectangle.contains (x,y)) && (counter > minAngle)){
+                    increaseAngleRectanglePaint.setColor(getResources().getColor(R.color.color_attention));
                     changeState(counter); //pressed
                     status = "\n-1";
                     counter = counter - 5;
                 }
-                if ((decreaseAngleRectangle.contains (x,y)) && (counter < 110)){
+                if ((decreaseAngleRectangle.contains (x,y)) && (counter < maxAngle)){
+                    decreaseAngleRectanglePaint.setColor(getResources().getColor(R.color.color_attention));
                     changeState(counter); //pressed
                     status = "\n+1";
                     counter = counter + 5;
@@ -101,73 +112,82 @@ public class CameraAngleAdjustorView extends PublisherView {
     }
 
     @Override
-    public boolean performClick() {
-        super.performClick();
+    public void onDraw(Canvas canvas) {
+        setDefaultRectangleCoords();
+        int widgetRotation = ((CameraAngleAdjustorEntity) widgetEntity).rotation;
+        if (widgetRotation != 0) rotateWidget(widgetRotation);
 
-        return true;
-    }
-
-
-    @Override
-    public void onDraw(Canvas canvas1) {
-        float width = getWidth();
-        float height = getHeight();
-        int topIncrease, leftIncrease, rightIncrease, bottomIncrease,
-                leftCrntVal, topCrntVal, rightCrntVal, bottomCrntVal,
-                leftDecrease, topDecrease, rightDecrease, bottomDecrease;
-
-        CameraAngleAdjustorEntity entity = (CameraAngleAdjustorEntity) widgetEntity;
-
-
-        topIncrease = topCrntVal = topDecrease = 0;
-        bottomIncrease = bottomCrntVal = bottomDecrease = (int)height;
-
-        leftIncrease = 0;
-        rightIncrease = (int)width/3;
-
-        leftCrntVal = (int)width/3;
-        rightCrntVal = 2*(int)width/3;
-
-        leftDecrease = 2*(int)width/3;
-        rightDecrease = (int)width;
-
-        if (entity.rotation == 180){
-            leftIncrease = leftDecrease;
-            leftDecrease = 0;
-            rightIncrease = rightDecrease;
-            rightDecrease = (int)width/3;
-        }
-        else if (entity.rotation == 90 || entity.rotation == 270) {
-            leftIncrease = leftCrntVal = leftDecrease = 0;
-            rightIncrease = rightCrntVal = rightDecrease = (int)width;
-
-            topIncrease = 0;
-            bottomIncrease = (int)height/3;
-
-            topCrntVal = (int)height/3;
-            bottomCrntVal = 2*(int)height/3;
-
-            topDecrease = 2*(int)height/3;
-            bottomDecrease = (int)height;
-
-            if (entity.rotation == 270) {
-                topIncrease = topDecrease;
-                topDecrease = 0;
-                bottomIncrease = bottomDecrease;
-                bottomDecrease = (int)height/3;
-            }
-        }
-
-        increaseAngleRectangle.set(leftIncrease, topIncrease, rightIncrease, bottomIncrease);
-        currentValueRectangle.set(leftCrntVal, topCrntVal, rightCrntVal, bottomCrntVal);
-        decreaseAngleRectangle.set(leftDecrease, topDecrease, rightDecrease, bottomDecrease);
-        canvas1.drawRect(increaseAngleRectangle,buttonPaint);
-        canvas1.drawRect(currentValueRectangle,buttonPaintCHECK);
-        canvas1.drawRect(decreaseAngleRectangle,buttonPaint);
+        canvas.drawRect(increaseAngleRectangle, increaseAngleRectanglePaint);
+        canvas.drawRect(currentAngleRectangle, currentAngleRectanglePaint);
+        canvas.drawRect(decreaseAngleRectangle, decreaseAngleRectanglePaint);
 
         textPaint.setTextAlign(Paint.Align.CENTER);
-        canvas1.drawText("-", increaseAngleRectangle.centerX(), increaseAngleRectangle.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
-        canvas1.drawText(String.valueOf(counter), currentValueRectangle.centerX(), currentValueRectangle.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
-        canvas1.drawText("+", decreaseAngleRectangle.centerX (), decreaseAngleRectangle.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+        canvas.drawText("-", increaseAngleRectangle.centerX(), increaseAngleRectangle.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+        canvas.drawText(String.valueOf(counter), currentAngleRectangle.centerX(), currentAngleRectangle.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+        canvas.drawText("+", decreaseAngleRectangle.centerX (), decreaseAngleRectangle.centerY()-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+    }
+
+    private enum widgetButton {
+        INCREMENT,
+        CURRENT_VALUE,
+        DECREMENT
+    }
+
+    private void setDefaultRectangleCoords() {
+        setCoordsFor(widgetButton.INCREMENT);
+        setCoordsFor(widgetButton.CURRENT_VALUE);
+        setCoordsFor(widgetButton.DECREMENT);
+    }
+
+    private void setCoordsFor(@NonNull widgetButton widgetButton) {
+        int widgetWidth = getWidth();
+        int top, left, right, bottom;
+        top = 0;
+        bottom = getHeight();
+
+        switch (widgetButton) {
+            case INCREMENT:
+                left = 0;
+                right = (int)widgetWidth/3;
+                increaseAngleRectangle.set(left, top, right, bottom);
+                break;
+            case CURRENT_VALUE:
+                left = (int)widgetWidth/3;
+                right = 2*(int)widgetWidth/3;
+                currentAngleRectangle.set(left, top, right, bottom);
+                break;
+            case DECREMENT:
+                left = 2*(int)widgetWidth/3;
+                right = (int)widgetWidth;
+                decreaseAngleRectangle.set(left, top, right, bottom);
+        }
+    }
+
+    private void rotateWidget(int rotation) {
+        if (rotation == 180) {
+            decreaseAngleRectangle.left = 0;
+            decreaseAngleRectangle.right = getWidth()/3;
+            increaseAngleRectangle.left = 2 * getWidth()/3;
+            increaseAngleRectangle.right = getWidth()/3;
+        }
+        else {
+            increaseAngleRectangle.left = currentAngleRectangle.left = decreaseAngleRectangle.left = 0;
+            increaseAngleRectangle.right = currentAngleRectangle.right = decreaseAngleRectangle.right = getWidth();
+            currentAngleRectangle.top = getHeight()/3;
+            currentAngleRectangle.bottom = 2 * getHeight()/3;
+            switch (rotation) {
+                case 90:
+                    increaseAngleRectangle.top = 0;
+                    increaseAngleRectangle.bottom = getHeight()/3;
+                    decreaseAngleRectangle.top = 2 * getHeight()/3;
+                    decreaseAngleRectangle.bottom = getHeight();
+                    break;
+                case 270:
+                    decreaseAngleRectangle.top = 0;
+                    decreaseAngleRectangle.bottom = getHeight()/3;
+                    increaseAngleRectangle.top = 2 * getHeight()/3;
+                    increaseAngleRectangle.bottom = getHeight();
+            }
+        }
     }
 }

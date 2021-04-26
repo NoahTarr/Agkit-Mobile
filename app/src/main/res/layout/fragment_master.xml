@@ -70,7 +70,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="number|numberDecimal|phone"
                     android:singleLine="true"
-                    android:text="168.0.0.1" />
+                    android:text="@string/default_master_ip" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,7 +93,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:singleLine="true"
-                    android:text="11311" />
+                    android:text="@string/default_master_port" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

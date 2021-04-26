@@ -47,7 +47,8 @@ public class IntroFragment extends Fragment {
     Button buttonNext;
     Button buttonGetStarted;
     Animation buttonAnimation;
-    Button buttonConfiguration;
+    Button buttonCustomConfiguration;
+    Button buttonDefaultConfigurations;
     EditText editTextConfigName;
     YouTubePlayerView videoView;
     IntroViewModel mViewModel;
@@ -68,7 +69,8 @@ public class IntroFragment extends Fragment {
         // Init Views
         buttonNext = view.findViewById(R.id.onboarding_btn_next);
         buttonGetStarted = view.findViewById(R.id.onboarding_btn_getStarted);
-        buttonConfiguration = view.findViewById(R.id.onboarding_btn_startConfig);
+        buttonCustomConfiguration = view.findViewById(R.id.onboarding_btn_customConfig);
+        buttonDefaultConfigurations = view.findViewById(R.id.onboarding_btn_defaultConfigs);
         editTextConfigName = view.findViewById(R.id.onboarding_editText_configName);
         tabIndicator = view.findViewById(R.id.tabIndicator);
         videoView = view.findViewById(R.id.onboarding_video_view);
@@ -109,10 +111,13 @@ public class IntroFragment extends Fragment {
         buttonGetStarted.setOnClickListener(v -> loadConfigNameScreen());
 
         // NameConfig Click Listener
-        buttonConfiguration.setOnClickListener(v -> loadMainFragment());
+        buttonCustomConfiguration.setOnClickListener(v -> loadMainFragment(true));
+
+        // DefaultConfig Click Listener
+        buttonDefaultConfigurations.setOnClickListener(v -> loadMainFragment(false));
     }
 
-    private void loadMainFragment() {
+    private void loadMainFragment(final boolean withNewConfig) {
         // Get string for first config name
         Bundle bundle = new Bundle();
         bundle.putString("configName",editTextConfigName.getText().toString());
@@ -126,7 +131,8 @@ public class IntroFragment extends Fragment {
         }
 
         MainFragment mainFragment = new MainFragment();
-        mainFragment.setArguments(bundle);
+        if (withNewConfig)
+            mainFragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_container, mainFragment)
                 .addToBackStack(null)
@@ -141,7 +147,8 @@ public class IntroFragment extends Fragment {
             screenPager.setCurrentItem(itemPosition);
 
         } else {
-            loadVideoScreen();
+//            loadVideoScreen();
+            loadConfigNameScreen();
         }
     }
 
@@ -162,10 +169,15 @@ public class IntroFragment extends Fragment {
 
     private void loadConfigNameScreen() {
         buttonGetStarted.setAnimation(null);
-        buttonConfiguration.setAnimation(buttonAnimation);
+        buttonNext.setVisibility(View.INVISIBLE);
         buttonGetStarted.setVisibility(View.INVISIBLE);
         videoView.setVisibility(View.INVISIBLE);
-        buttonConfiguration.setVisibility(View.VISIBLE);
+        tabIndicator.setVisibility(View.INVISIBLE);
+        screenPager.setVisibility(View.INVISIBLE);
+        buttonCustomConfiguration.setAnimation(buttonAnimation);
+        buttonDefaultConfigurations.setAnimation(buttonAnimation);
+        buttonCustomConfiguration.setVisibility(View.VISIBLE);
+        buttonDefaultConfigurations.setVisibility(View.VISIBLE);
         editTextConfigName.setVisibility(View.VISIBLE);
     }
 

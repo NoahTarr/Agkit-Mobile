@@ -39,9 +39,12 @@ public class IntroViewModel extends AndroidViewModel {
 
     public List<ScreenItem> getScreenItems() {
         List<ScreenItem> mList = new ArrayList<>();
-        String[] titleArray = getApplication().getResources().getStringArray(R.array.intro_title);
-        String[] descrArray = getApplication().getResources().getStringArray(R.array.intro_descr);
-        TypedArray imgArray = getApplication().getResources().obtainTypedArray(R.array.intro_img);
+//        String[] titleArray = getApplication().getResources().getStringArray(R.array.intro_title);
+//        String[] descrArray = getApplication().getResources().getStringArray(R.array.intro_descr);
+//        TypedArray imgArray = getApplication().getResources().obtainTypedArray(R.array.intro_img);
+        String[] titleArray = getApplication().getResources().getStringArray(R.array.getting_started_title);
+        String[] descrArray = getApplication().getResources().getStringArray(R.array.getting_started_descr);
+        TypedArray imgArray = getApplication().getResources().obtainTypedArray(R.array.getting_started_img);
 
         for (int i = 0; i < titleArray.length; i++) {
             mList.add(new ScreenItem(titleArray[i], descrArray[i], imgArray.getResourceId(i, -1)));

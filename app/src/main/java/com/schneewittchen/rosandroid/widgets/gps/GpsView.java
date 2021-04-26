@@ -69,6 +69,7 @@ public class GpsView extends SubscriberView {
     private GeoPoint locationGeoPoint = new GeoPoint(38.531702, -121.753551); // Mondavi vineyard
     private GeoPoint centerGeoPoint = new GeoPoint(38.531702, -121.753551);
     IMapController mapController = null;
+    final boolean useNetworkForMapsIfAvailable = true;
 
     // Rectangle Surrounding
     Paint paint;
@@ -78,7 +79,7 @@ public class GpsView extends SubscriberView {
     GpsData data;
 
     // Zoom Parameters, TODO: Add this into details
-    private double minZoom = 2;         // min. and max. zoom
+    private double minZoom = 5;         // min. and max. zoom
     private double maxZoom = 15;
     private float zoomScale = 1;
     private float scaleFactor = 15;
@@ -171,8 +172,8 @@ public class GpsView extends SubscriberView {
         //map.setTileSource(TileSourceFactory.MAPNIK); // Online map source
 
         // Set up offline maps
-        map.setUseDataConnection(false); // Set to offline maps only
-        ITileSource tileSource = new XYTileSource("4uMaps", 2, 15, 256, ".png", new String[] {""}); // Offline USGS
+        map.setUseDataConnection(useNetworkForMapsIfAvailable); // Set to offline maps only
+        ITileSource tileSource = new XYTileSource("4uMaps", (int)minZoom, (int)maxZoom,  256, ".png", new String[] {""}); // Offline USGS
         map.setTileSource(tileSource);
 
         map.setMultiTouchControls(true);
@@ -190,7 +191,8 @@ public class GpsView extends SubscriberView {
         // Polyline initialize
         polyline = new Polyline();
         polyline.getOutlinePaint().setColor(Color.parseColor("#EB7734"));
-        polyline.getOutlinePaint().setStrokeWidth(11f);
+        polyline.getOutlinePaint().setStrokeWidth(10f);
+        polyline.getOutlinePaint().setAlpha(80);
     }
 
     final GestureDetector gestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
@@ -288,6 +290,7 @@ public class GpsView extends SubscriberView {
         // Draw the OMS
         map.layout((int) left, (int) right, (int) width, (int) height);
         map.getOverlays().add(locationOverlay);
+        map.getOverlays().add(polyline);
         map.draw(canvas);
 
         // Apply the changes
@@ -302,8 +305,7 @@ public class GpsView extends SubscriberView {
         GeoPoint newGeo = new GeoPoint(this.data.getLat(), this.data.getLon());
         locationGeoPoint.setLatitude(this.data.getLat());
         locationGeoPoint.setLongitude(this.data.getLon());
-        polyline.addPoint(locationGeoPoint); // Add new point for path drawing
-        map.getOverlays().add(polyline);
+        polyline.addPoint(newGeo);
         this.invalidate();
     }
 
