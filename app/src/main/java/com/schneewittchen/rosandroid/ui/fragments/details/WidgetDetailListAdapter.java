@@ -59,6 +59,7 @@ public class WidgetDetailListAdapter extends RecyclerView.Adapter<BaseDetailView
 
             LayoutInflater inflator = LayoutInflater.from(parent.getContext());
             View itemView = inflator.inflate(R.layout.widget_detail_base, parent, false);
+//            itemView.findViewById(R.id.detailContend).setVisibility(View.VISIBLE);
 
             BaseDetailViewHolder<BaseEntity> viewHolder = cons.newInstance(itemView, this);
             viewHolder.setViewModel(mViewModel);
